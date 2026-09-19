@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Koushik Paul | Full-Stack Software Engineer &amp; Web Architect</title>
+
+  <!-- Google Fonts: Inter, Plus Jakarta Sans, JetBrains Mono -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- GSAP Animation Libraries CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+
+  <!-- Tailwind Configuration -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            canvas: "#0d1117",
+            surface: "#161b22",
+            slateContainer: "#21262d",
+            githubBlue: {
+              400: "#79c0ff",
+              500: "#58a6ff",
+              600: "#1f6feb"
+            },
+            githubGreen: {
+              400: "#56d364",
+              500: "#3fb950",
+              600: "#2ea043"
+            }
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            display: ["Plus Jakarta Sans", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Standard Developer Palette & Custom Styles -->
+  <style>
+    :root {
+      /* GitHub Dark Pro / Developer Standard Theme */
+      --canvas: #0d1117;
+      --surface: #161b22;
+      --surface-border: #30363d;
+      --primary: #58a6ff;
+      --primary-rgb: 88, 166, 255;
+      --primary-glow: rgba(88, 166, 255, 0.35);
+      --accent-green: #3fb950;
+      --accent-purple: #d2a8ff;
+      --accent-cyan: #39c5cf;
+      --accent-amber: #d29922;
+    }
+
+    [data-theme="vscode"] {
+      /* VS Code Dark+ Theme */
+      --canvas: #1e1e1e;
+      --surface: #252526;
+      --surface-border: #3c3c3c;
+      --primary: #007acc;
+      --primary-rgb: 0, 122, 204;
+      --primary-glow: rgba(0, 122, 204, 0.4);
+      --accent-green: #4ec9b0;
+      --accent-purple: #c586c0;
+      --accent-cyan: #9cdcfe;
+      --accent-amber: #ce9178;
+    }
+
+    [data-theme="jetbrains"] {
+      /* JetBrains Darcula Theme */
+      --canvas: #2b2b2b;
+      --surface: #3c3f41;
+      --surface-border: #515151;
+      --primary: #ffc66d;
+      --primary-rgb: 255, 198, 109;
+      --primary-glow: rgba(255, 198, 109, 0.4);
+      --accent-green: #629755;
+      --accent-purple: #9876aa;
+      --accent-cyan: #6897bb;
+      --accent-amber: #cc7832;
+    }
+
+    [data-theme="nord"] {
+      /* Nord Developer Theme */
+      --canvas: #2e3440;
+      --surface: #3b4252;
+      --surface-border: #434c5e;
+      --primary: #88c0d0;
+      --primary-rgb: 136, 192, 208;
+      --primary-glow: rgba(136, 192, 208, 0.4);
+      --accent-green: #a3be8c;
+      --accent-purple: #b48ead;
+      --accent-cyan: #81a1c1;
+      --accent-amber: #ebcb8b;
+    }
+
+    body {
+      background-color: var(--canvas);
+      color: #c9d1d9;
+      overflow-x: hidden;
+    }
+
+    .tech-grid-bg {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    .glass-card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--surface-border);
+      position: relative;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .glass-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 8px 30px -8px var(--primary-glow);
+    }
+
+    .highlight-card {
+      background: linear-gradient(135deg, rgba(22, 27, 34, 0.95), rgba(33, 38, 45, 0.85));
+      border: 1px solid rgba(88, 166, 255, 0.4);
+      box-shadow: 0 0 25px -8px rgba(88, 166, 255, 0.25);
+    }
+
+    /* Mouse Spotlight Tracking Effect */
+    .spotlight-card {
+      --mouse-x: 50%;
+      --mouse-y: 50%;
+    }
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), rgba(var(--primary-rgb), 0.12), transparent 40%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .img-zoom-container {
+      overflow: hidden;
+      position: relative;
+    }
+    .img-zoom-container img {
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .img-zoom-container:hover img {
+      transform: scale(1.06);
+    }
+
+    /* Custom Developer Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--canvas);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #30363d;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    .modal-backdrop {
+      background: rgba(13, 17, 23, 0.88);
+      backdrop-filter: blur(14px);
+    }
+  </style>
+</head>
+<body class="selection:bg-blue-500 selection:text-slate-950 font-sans relative antialiased min-h-screen">
+
+  <!-- Canvas Background for Constellation & Interactive Physics -->
+  <canvas class="fixed inset-0 pointer-events-none z-0" id="particle-canvas"></canvas>
+
+  <!-- Top Scroll Progress Indicator Bar -->
+  <div class="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 via-green-400 to-cyan-400 z-[100] w-0 shadow-[0_0_12px_rgba(88,166,255,0.9)]" id="scrollProgressBar"></div>
+
+  <!-- Custom Interactive Developer Cursor Follower -->
+  <div class="fixed w-8 h-8 rounded-full border border-blue-400/50 bg-blue-500/10 pointer-events-none z-[999] transition-transform duration-75 -translate-x-1/2 -translate-y-1/2 hidden md:block" id="customCursor"></div>
+  <div class="fixed w-2 h-2 rounded-full bg-blue-400 pointer-events-none z-[999] -translate-x-1/2 -translate-y-1/2 hidden md:block" id="customCursorDot"></div>
+
+  <!-- Ambient Glow Blobs & Tech Grid Overlay -->
+  <div class="fixed inset-0 tech-grid-bg pointer-events-none z-0 opacity-40"></div>
+  <div class="fixed -top-40 -left-40 w-[550px] h-[550px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none z-0" id="glow-blob-1"></div>
+  <div class="fixed top-1/3 -right-32 w-[600px] h-[600px] bg-green-500/8 rounded-full blur-[150px] pointer-events-none z-0" id="glow-blob-2"></div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. STICKY FLOATING GLASSMORPHISM NAVBAR                                   -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-4 z-50 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto gsap-header-reveal">
+    <div class="glass-card rounded-2xl px-4 sm:px-6 h-16 flex items-center justify-between shadow-2xl border border-slate-700/80">
+      
+      <!-- Monogram Brand Logo (<K>) -->
+      <a class="flex items-center gap-3 group magnetic-btn" href="#hero">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-500 via-green-400 to-blue-600 p-0.5 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-mono font-bold text-transparent bg-clip-text bg-gradient-to-tr from-blue-400 to-green-400 text-base">&lt;K&gt;</div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-bold text-white text-base tracking-tight flex items-center gap-1">
+            KOUSHIK<span class="text-blue-400">.dev</span>
+            <span class="inline-block w-1.5 h-4 bg-blue-400 animate-pulse"></span>
+          </span>
+          <span class="font-mono text-[10px] text-slate-400 tracking-wider">FULL-STACK ENGINEER</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300 font-mono">
+        <a class="hover:text-blue-400 transition-colors py-1 relative group" href="#terminal-section">
+          ~/cli
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a class="hover:text-blue-400 transition-colors py-1 relative group" href="#about">
+          ~/about
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a class="hover:text-blue-400 transition-colors py-1 relative group" href="#skills">
+          ~/skills
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a class="hover:text-blue-400 transition-colors py-1 relative group" href="#projects">
+          ~/projects
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a class="hover:text-blue-400 transition-colors py-1 relative group" href="#experience">
+          ~/experience
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+        <a class="hover:text-blue-400 transition-colors py-1 relative group" href="#contact">
+          ~/contact
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      </nav>
+
+      <!-- Actions: Command Palette, Theme Switcher & CTA -->
+      <div class="flex items-center gap-3">
+        
+        <!-- Command Palette Trigger Button (Ctrl+K) -->
+        <button class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-blue-500/50 text-slate-400 hover:text-slate-200 font-mono text-xs transition-all magnetic-btn" id="cmdPaletteBtn" title="Search & Quick Actions (Ctrl+K)">
+          <span class="material-symbols-outlined text-[16px] text-blue-400">search</span>
+          <span>Search</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-[10px] text-slate-300 font-sans">Ctrl K</kbd>
+        </button>
+
+        <!-- Theme Switcher Dropdown (Standard Developer IDE Themes) -->
+        <div class="relative group">
+          <button class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-600 flex items-center justify-center text-slate-300 hover:text-white transition-colors" id="themeMenuBtn" title="Change IDE Color Palette">
+            <span class="material-symbols-outlined text-[18px] text-blue-400">palette</span>
+          </button>
+          <div class="absolute right-0 top-11 w-48 rounded-xl glass-card border border-slate-700 p-2 shadow-2xl hidden group-hover:block hover:block z-50">
+            <div class="text-[10px] font-mono text-slate-400 uppercase px-2 py-1 mb-1">Developer Palette</div>
+            <button class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-xs font-mono text-slate-200 text-left transition-colors" onclick="setAppTheme('github')">
+              <span class="w-3 h-3 rounded-full bg-blue-400"></span> GitHub Dark Pro
+            </button>
+            <button class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-xs font-mono text-slate-200 text-left transition-colors" onclick="setAppTheme('vscode')">
+              <span class="w-3 h-3 rounded-full bg-cyan-400"></span> VS Code Dark+
+            </button>
+            <button class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-xs font-mono text-slate-200 text-left transition-colors" onclick="setAppTheme('jetbrains')">
+              <span class="w-3 h-3 rounded-full bg-amber-400"></span> JetBrains Darcula
+            </button>
+            <button class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-xs font-mono text-slate-200 text-left transition-colors" onclick="setAppTheme('nord')">
+              <span class="w-3 h-3 rounded-full bg-teal-300"></span> Nord Developer
+            </button>
+          </div>
+        </div>
+
+        <!-- Get in Touch CTA -->
+        <a class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-green-500 text-slate-950 font-display font-semibold text-xs uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/25 hover:scale-[1.02] active:scale-95 transition-all magnetic-btn" href="#contact">
+          <span>Get in Touch</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300" id="mobileMenuBtn">
+          <span class="material-symbols-outlined text-[20px]">menu</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Nav Menu -->
+    <div class="hidden lg:hidden glass-card rounded-2xl mt-2 p-4 border border-slate-700 space-y-3 font-mono" id="mobileDrawer">
+      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#terminal-section">~/cli</a>
+      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#about">~/about</a>
+      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#skills">~/skills</a>
+      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#projects">~/projects</a>
+      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#experience">~/experience</a>
+      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#contact">~/contact</a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. HERO SECTION                                                           -->
+  <!-- ========================================================================= -->
+  <main class="relative z-10">
+    <section class="pt-10 md:pt-16 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="hero">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Column: Narrative & Typing Header -->
+        <div class="lg:col-span-7 flex flex-col items-start space-y-6">
+          
+          <!-- Availability & Status Badge -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-blue-500/30 text-xs font-mono text-blue-400 shadow-inner gsap-hero-item">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span>👋 Hello World! I'm Koushik Paul</span>
+          </div>
+
+          <!-- Dynamic GSAP Typing Title -->
+          <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] gsap-hero-item">
+            Software Engineer Crafting 
+            <span class="bg-gradient-to-r from-blue-400 via-cyan-300 to-green-400 bg-clip-text text-transparent block mt-1" id="gsap-typed-role">
+              High-Performance Web Applications
+            </span>
+          </h1>
+
+          <!-- Subheadline Narrative -->
+          <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl gsap-hero-item">
+            Detail-oriented full-stack engineer building scalable, clean, and high-performance web software. Specializing in <span class="text-blue-400 font-medium font-mono">PHP 8+, Laravel, MySQL, JavaScript &amp; jQuery</span> at <span class="text-white font-medium">eMythMakers.com</span>. Focused on query tuning, clean MVC architecture, and delightful user experiences.
+          </p>
+
+          <!-- Badges: Location & Dhaka Time Clock -->
+          <div class="flex flex-wrap items-center gap-3 pt-1 gsap-hero-item">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700 text-xs font-mono text-slate-300">
+              <span class="material-symbols-outlined text-green-400 text-[18px]">location_on</span>
+              Dhaka, Bangladesh
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700 text-xs font-mono text-slate-300">
+              <span class="material-symbols-outlined text-blue-400 text-[18px]">schedule</span>
+              <span id="dhakaClock">--:--:-- BD</span>
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700 text-xs font-mono text-slate-300">
+              <span class="material-symbols-outlined text-amber-400 text-[18px]">business_center</span>
+              Software Engineer @ eMythMakers.com
+            </span>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-4 pt-4 gsap-hero-item">
+            <a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-500 to-green-500 text-slate-950 font-display font-bold text-sm tracking-wide shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all magnetic-btn" href="#projects">
+              <span>Explore Projects</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+            </a>
+            <a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl glass-card text-white hover:text-blue-400 hover:border-blue-500/50 font-display font-medium text-sm transition-all magnetic-btn" href="#about">
+              <span class="material-symbols-outlined text-[18px] text-blue-400">person</span>
+              <span>About Me</span>
+            </a>
+            <a class="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/70 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white font-mono text-xs transition-colors magnetic-btn" href="mailto:koushikpaul6211@gmail.com?subject=Resume%20Request%20-%20Koushik%20Paul">
+              <span class="material-symbols-outlined text-[18px]">description</span>
+              <span>Resume</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive 3D Card with User Image (member_10.jpg) -->
+        <div class="lg:col-span-5 flex items-center justify-center relative gsap-hero-portrait">
+          <div class="relative w-72 sm:w-80 md:w-96 aspect-square flex items-center justify-center tilt-card">
+            
+            <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/30 via-green-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+            
+            <div class="relative z-10 p-1.5 rounded-full bg-gradient-to-tr from-blue-500 via-green-400 to-blue-600 shadow-2xl shadow-blue-500/25">
+              <div class="w-64 sm:w-72 md:w-80 h-64 sm:h-72 md:h-80 rounded-full overflow-hidden bg-slate-950 p-1 border-4 border-slate-950 relative z-10">
+                <img alt="Koushik Paul - Software Engineer" class="w-full h-full object-cover object-center rounded-full hover:scale-105 transition-transform duration-700 relative z-10" src="member_10.jpg"/>
+              </div>
+            </div>
+
+            <!-- Floating Tech Badges -->
+            <div class="absolute -top-3 -left-4 z-20 gsap-float-pill-1">
+              <div class="glass-card px-3.5 py-2 rounded-xl flex items-center gap-2 border border-blue-500/40 shadow-xl shadow-black/60">
+                <span class="text-base">🐘</span>
+                <span class="font-mono text-xs font-semibold text-blue-300">PHP 8+</span>
+              </div>
+            </div>
+
+            <div class="absolute top-1/4 -right-6 z-20 gsap-float-pill-2">
+              <div class="glass-card px-3.5 py-2 rounded-xl flex items-center gap-2 border border-red-500/40 shadow-xl shadow-black/60">
+                <span class="text-base">⚡</span>
+                <span class="font-mono text-xs font-semibold text-rose-300">Laravel</span>
+              </div>
+            </div>
+
+            <div class="absolute -bottom-4 left-6 z-20 gsap-float-pill-3">
+              <div class="glass-card px-3.5 py-2 rounded-xl flex items-center gap-2 border border-amber-500/40 shadow-xl shadow-black/60">
+                <span class="text-base">🚀</span>
+                <span class="font-mono text-xs font-semibold text-amber-300">JavaScript ES6+</span>
+              </div>
+            </div>
+
+            <div class="absolute bottom-16 -right-6 z-20 gsap-float-pill-4">
+              <div class="glass-card px-3.5 py-2 rounded-xl flex items-center gap-2 border border-cyan-500/40 shadow-xl shadow-black/60">
+                <span class="text-base">🐬</span>
+                <span class="font-mono text-xs font-semibold text-cyan-300">MySQL</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 3. LIVE INTERACTIVE CLI TERMINAL WIDGET                                   -->
+    <!-- ========================================================================= -->
+    <section class="py-12 relative" id="terminal-section">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 gsap-reveal">
+        <div class="glass-card rounded-2xl overflow-hidden shadow-2xl border border-slate-700">
+          
+          <!-- Terminal Chrome Window Header -->
+          <div class="px-4 py-3 bg-slate-900 border-b border-slate-700 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+            </div>
+            <div class="font-mono text-xs text-slate-400 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[14px] text-blue-400">terminal</span>
+              <span>koushik@dhaka-node:~ (zsh)</span>
+            </div>
+            <div class="text-[10px] font-mono text-slate-400">Type <span class="text-blue-400">help</span></div>
+          </div>
+
+          <!-- Terminal Screen Area -->
+          <div class="p-6 bg-slate-950/95 font-mono text-xs sm:text-sm text-slate-300 min-h-[300px] max-h-[420px] overflow-y-auto space-y-3" id="terminalOutput">
+            <div class="text-slate-400">
+              Welcome to Koushik Paul's Interactive CLI [GitHub Dark Pro Edition].<br/>
+              Type <span class="text-blue-400 font-bold">'help'</span> for available commands or <span class="text-green-400 font-bold">'sudo hire'</span> to transmit a direct offer.
+            </div>
+          </div>
+
+          <!-- Command Input Form Bar -->
+          <form class="px-6 py-3 bg-slate-900 border-t border-slate-700 flex items-center gap-3" id="terminalForm">
+            <span class="text-blue-400 font-mono font-bold">$</span>
+            <input autocomplete="off" class="flex-1 bg-transparent text-white font-mono text-xs sm:text-sm focus:outline-none placeholder:text-slate-600" id="terminalInput" placeholder="Type a command (e.g. skills, projects, contact, theme vscode)..." type="text"/>
+            <button class="px-3 py-1 rounded bg-slate-800 hover:bg-blue-500 hover:text-slate-950 text-slate-300 font-mono text-xs transition-colors" type="submit">Execute</button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 4. HIGHLIGHTED ABOUT ME SECTION (CONCISE TEXT & USER IMAGE MEMBER_10.JPG)  -->
+    <!-- ========================================================================= -->
+    <section class="py-20 relative" id="about">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Title Header -->
+        <div class="flex items-center gap-4 mb-14 gsap-reveal">
+          <div class="px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-xs font-bold uppercase tracking-wider">
+            01. ABOUT ME
+          </div>
+          <div class="h-px flex-1 bg-gradient-to-r from-blue-500/30 via-slate-700 to-transparent"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <!-- Left Side: User Image (member_10.jpg) + Concise Bio Card (6 Cols) -->
+          <div class="lg:col-span-6 glass-card spotlight-card highlight-card rounded-3xl p-6 sm:p-8 shadow-2xl gsap-reveal">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+              
+              <!-- User Profile Image Badge -->
+              <div class="relative shrink-0">
+                <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-blue-400 shadow-xl p-1 bg-slate-900">
+                  <img alt="Koushik Paul" class="w-full h-full object-cover object-center rounded-xl" src="member_10.jpg"/>
+                </div>
+                <span class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-full bg-green-950 border border-green-400 text-green-400 font-mono text-[10px] font-bold">
+                  ACTIVE
+                </span>
+              </div>
+
+              <!-- Concise Punchy Narrative -->
+              <div class="flex-1 text-center sm:text-left space-y-3">
+                <div>
+                  <h3 class="font-display font-bold text-xl text-white">Koushik Paul</h3>
+                  <span class="font-mono text-xs text-blue-400 block">Software Engineer @ eMythMakers.com</span>
+                </div>
+                
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Full-stack developer based in Dhaka, Bangladesh. Specializing in high-performance <strong class="text-white">PHP 8+, Laravel, MySQL, JavaScript (ES6+) &amp; jQuery</strong>.
+                </p>
+
+                <div class="pt-2 flex flex-wrap gap-2 justify-center sm:justify-start font-mono text-[11px]">
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">📍 Dhaka, BD</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-blue-300">⚡ Laravel &amp; MySQL</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-green-300">🚀 2+ Years Commercial</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Side: 4 Visual Stat Counter Cards (6 Cols) -->
+          <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Stat 1 -->
+            <div class="glass-card spotlight-card rounded-2xl p-6 flex items-center gap-4 group hover:scale-[1.02] transition-all gsap-reveal tilt-card border-l-4 border-l-blue-500">
+              <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                <span class="material-symbols-outlined text-2xl">history_edu</span>
+              </div>
+              <div>
+                <span class="font-display font-extrabold text-3xl text-blue-400 block tracking-tight gsap-counter" data-target="2">0</span>
+                <span class="text-white font-bold text-xs block">Years Experience</span>
+                <p class="text-slate-400 text-[11px] mt-0.5">eMythMakers.com</p>
+              </div>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="glass-card spotlight-card rounded-2xl p-6 flex items-center gap-4 group hover:scale-[1.02] transition-all gsap-reveal tilt-card border-l-4 border-l-green-500">
+              <div class="w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/30 text-green-400 flex items-center justify-center shrink-0 group-hover:bg-green-500/20 transition-colors">
+                <span class="material-symbols-outlined text-2xl">deployed_code</span>
+              </div>
+              <div>
+                <span class="font-display font-extrabold text-3xl text-green-400 block tracking-tight gsap-counter" data-target="15">0</span>
+                <span class="text-white font-bold text-xs block">Projects Delivered</span>
+                <p class="text-slate-400 text-[11px] mt-0.5">Client Platforms</p>
+              </div>
+            </div>
+
+            <!-- Stat 3 -->
+            <div class="glass-card spotlight-card rounded-2xl p-6 flex items-center gap-4 group hover:scale-[1.02] transition-all gsap-reveal tilt-card border-l-4 border-l-cyan-500">
+              <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0 group-hover:bg-cyan-500/20 transition-colors">
+                <span class="material-symbols-outlined text-2xl">speed</span>
+              </div>
+              <div>
+                <span class="font-display font-extrabold text-3xl text-cyan-300 block tracking-tight">~30%</span>
+                <span class="text-white font-bold text-xs block">Query Speedup</span>
+                <p class="text-slate-400 text-[11px] mt-0.5">MySQL Indexing</p>
+              </div>
+            </div>
+
+            <!-- Stat 4 -->
+            <div class="glass-card spotlight-card rounded-2xl p-6 flex items-center gap-4 group hover:scale-[1.02] transition-all gsap-reveal tilt-card border-l-4 border-l-amber-500">
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0 group-hover:bg-amber-500/20 transition-colors">
+                <span class="material-symbols-outlined text-2xl">military_tech</span>
+              </div>
+              <div>
+                <span class="font-display font-extrabold text-xl text-amber-300 block tracking-tight">Rising Star</span>
+                <span class="text-white font-bold text-xs block">Annual Awardee</span>
+                <p class="text-slate-400 text-[11px] mt-0.5">Honors 2024–2025</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 5. HIGHLIGHTED CORE SKILLS & CAPABILITIES MATRIX                         -->
+    <!-- ========================================================================= -->
+    <section class="py-20 relative bg-slate-950/30" id="skills">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header & Filter Tabs -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 gsap-reveal">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-xs font-bold uppercase tracking-wider mb-2">
+              02. TECHNICAL MASTERY &amp; CAPABILITIES
+            </div>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+              Comprehensive Full-Stack Skillset
+            </h2>
+          </div>
+          
+          <!-- Category Filter Pills -->
+          <div class="flex flex-wrap gap-2">
+            <button class="px-4 py-2 rounded-xl bg-blue-500 text-slate-950 font-mono text-xs font-bold shadow-lg shadow-blue-500/20 transition-all cursor-pointer" id="filterBtnAll" onclick="filterSkills('all')">All Tech</button>
+            <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer" id="filterBtnBackend" onclick="filterSkills('backend')">Backend</button>
+            <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer" id="filterBtnFrontend" onclick="filterSkills('frontend')">Frontend</button>
+            <button class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer" id="filterBtnDevops" onclick="filterSkills('devops')">Database &amp; Tools</button>
+          </div>
+        </div>
+
+        <!-- Visual Skill Graphic Cards Grid (4 Core Skills) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8" id="skillsGrid">
+          
+          <!-- Skill 1: PHP 8+ & Laravel -->
+          <div class="glass-card spotlight-card rounded-2xl p-6 flex flex-col justify-between shadow-xl border border-slate-700 hover:border-blue-500/60 gsap-reveal skill-item" data-category="backend">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center font-display font-bold text-2xl shadow-inner">
+                  🐘
+                </div>
+                <span class="px-3 py-1 rounded-full bg-blue-950 border border-blue-500/40 font-mono text-[10px] uppercase font-bold text-blue-300 tracking-wider">
+                  94% Mastery
+                </span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white mb-2">PHP 8+ &amp; Laravel Framework</h3>
+              <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                Modular backend engineering, Eloquent ORM, Artisan CLI, REST endpoints, &amp; MVC application patterns.
+              </p>
+              <div class="flex flex-wrap gap-1.5 font-mono text-xs mb-4">
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-blue-300 font-semibold">Laravel 10/11</span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">Eloquent</span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">REST APIs</span>
+              </div>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-slate-800">
+              <div class="h-full bg-gradient-to-r from-blue-500 to-green-400 rounded-full w-[94%]"></div>
+            </div>
+          </div>
+
+          <!-- Skill 2: MySQL -->
+          <div class="glass-card spotlight-card rounded-2xl p-6 flex flex-col justify-between shadow-xl border border-slate-700 hover:border-cyan-500/60 gsap-reveal skill-item" data-category="devops">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center font-display font-bold text-2xl shadow-inner">
+                  🐬
+                </div>
+                <span class="px-3 py-1 rounded-full bg-cyan-950 border border-cyan-500/40 font-mono text-[10px] uppercase font-bold text-cyan-300 tracking-wider">
+                  90% Mastery
+                </span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white mb-2">MySQL Database Tuning</h3>
+              <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                Normalized schemas, composite indexing, query execution tuning, &amp; relational data integrity.
+              </p>
+              <div class="flex flex-wrap gap-1.5 font-mono text-xs mb-4">
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-cyan-300 font-semibold">MySQL 8</span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">Indexing</span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">Optimization</span>
+              </div>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-slate-800">
+              <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-400 rounded-full w-[90%]"></div>
+            </div>
+          </div>
+
+          <!-- Skill 3: JavaScript & jQuery -->
+          <div class="glass-card spotlight-card rounded-2xl p-6 flex flex-col justify-between shadow-xl border border-slate-700 hover:border-amber-500/60 gsap-reveal skill-item" data-category="frontend">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-display font-bold text-2xl shadow-inner">
+                  🚀
+                </div>
+                <span class="px-3 py-1 rounded-full bg-amber-950 border border-amber-500/40 font-mono text-[10px] uppercase font-bold text-amber-300 tracking-wider">
+                  88% Mastery
+                </span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white mb-2">JavaScript (ES6+) &amp; jQuery / AJAX</h3>
+              <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                Responsive DOM manipulation, asynchronous form dispatchers, Promises, &amp; GSAP micro-animations.
+              </p>
+              <div class="flex flex-wrap gap-1.5 font-mono text-xs mb-4">
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-amber-300 font-semibold">JS ES6+</span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">jQuery</span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">AJAX Engine</span>
+              </div>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-slate-800">
+              <div class="h-full bg-gradient-to-r from-amber-500 to-yellow-300 rounded-full w-[88%]"></div>
+            </div>
+          </div>
+
+          <!-- Skill 4: Tailwind CSS & Bootstrap 5 -->
+          <div class="glass-card spotlight-card rounded-2xl p-6 flex flex-col justify-between shadow-xl border border-slate-700 hover:border-purple-500/60 gsap-reveal skill-item" data-category="frontend">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center font-display font-bold text-2xl shadow-inner">
+                  🎨
+                </div>
+                <span class="px-3 py-1 rounded-full bg-purple-950 border border-purple-500/40 font-mono text-[10px] uppercase font-bold text-purple-300 tracking-wider">
+                  92% Mastery
+                </span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white mb-2">Tailwind CSS &amp; Bootstrap 5</h3>
+              <p class="text-slate-300 text-xs leading-relaxed mb-4">
+                Modern utility styling, glassmorphism layers, CSS grid layouts, &amp; responsive UI components.
+              </p>
+              <div class="flex flex-wrap gap-1.5 font-mono text-xs mb-4">
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-purple-300 font-semibold">Tailwind</span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">Bootstrap 5</span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">Glassmorphism</span>
+              </div>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-slate-800">
+              <div class="h-full bg-gradient-to-r from-purple-500 to-indigo-400 rounded-full w-[92%]"></div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 6. FEATURED PROJECTS IMAGE SHOWCASE GALLERY (5 CASE STUDIES)              -->
+    <!-- ========================================================================= -->
+    <section class="py-20 relative" id="projects">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 gsap-reveal">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-xs font-bold uppercase tracking-wider mb-2">
+              03. FEATURED PROJECTS
+            </div>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+              Production Work Portfolio
+            </h2>
+          </div>
+          <span class="font-mono text-xs text-slate-400">Click any card for instant preview modal</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Project 1: Amitabh Reza Chowdhury Portfolio -->
+          <div class="glass-card spotlight-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:-translate-y-2 transition-all duration-300 shadow-2xl border border-slate-700 hover:border-blue-500/50 gsap-reveal tilt-card">
+            <div>
+              <div class="px-4 py-3 bg-slate-900 border-b border-slate-700 flex items-center justify-between font-mono text-[11px]">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block"></span>
+                </div>
+                <span class="text-slate-400 truncate max-w-[170px]">amitabhreza.com</span>
+                <span class="material-symbols-outlined text-slate-500 text-[14px]">lock</span>
+              </div>
+              
+              <div class="relative h-52 w-full img-zoom-container bg-slate-950">
+                <img alt="Amitabh Reza Chowdhury Portfolio Screenshot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkWWh_6xTPCoPX-G-qaWpugf_ALuDVdc6vvcJjp3tZZZS04nAomdve9FjX-hrUAQKv6uJNzg2BEnGqiN0pjDfeBtBskEztCnRKaFlXgsTwtlZnyfME_98Gl-tRKHip-v539-70KZsU-esFU9733JOLo614OD40jIniEx3Ceo_f9iLbrvVo7IQjM_5dqywG5wQ9IynachUu0phuPa_2EjrKx-kvDA54GwhF1SRn_Y8ufXDTY6vPbPo3Aw"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 border border-blue-500/40 text-blue-400 font-mono text-[10px] uppercase tracking-wider backdrop-blur-md">
+                  Media CMS
+                </span>
+              </div>
+
+              <div class="p-6">
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-blue-400 transition-colors">
+                  Amitabh Reza Chowdhury Portfolio
+                </h3>
+                <span class="block font-mono text-xs text-blue-400 mt-1 mb-3">Renowned Director Media Platform</span>
+                <div class="flex flex-wrap gap-1.5 mb-4 font-mono text-[11px]">
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">PHP</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">MySQL</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">jQuery</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-slate-800 pt-4">
+              <button class="inline-flex items-center gap-1.5 font-mono text-xs text-slate-400 hover:text-blue-400 transition-colors cursor-pointer" onclick="openProjectModal(1)">
+                <span class="material-symbols-outlined text-[16px]">visibility</span>
+                <span>Quick View</span>
+              </button>
+              <a class="inline-flex items-center gap-1 font-mono text-xs text-blue-400 hover:underline" href="#contact">
+                <span>Inquire</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 2: Lahore to Bukhara -->
+          <div class="glass-card spotlight-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:-translate-y-2 transition-all duration-300 shadow-2xl border border-slate-700 hover:border-cyan-500/50 gsap-reveal tilt-card">
+            <div>
+              <div class="px-4 py-3 bg-slate-900 border-b border-slate-700 flex items-center justify-between font-mono text-[11px]">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block"></span>
+                </div>
+                <span class="text-slate-400 truncate max-w-[170px]">lahoretobukhara.com</span>
+                <span class="material-symbols-outlined text-slate-500 text-[14px]">lock</span>
+              </div>
+
+              <div class="relative h-52 w-full img-zoom-container bg-slate-950">
+                <img alt="Lahore to Bukhara Travel Journal Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_30P8ptqrJiwQ1_wp_ibWE7UG2FsbA0RIlSxk8XwwHRReFfIeNXU4TnB4Ozb35bqzNr6FjleuHgt8i0kHuGv9ASw9gW8gmPLCIY1XeQ-DBubpIs-R4DTAchURSdOvfaa2ph9PLR48nOfUDeF8NzB6N6qjShFKzgDrumSGO6NglCJNMmkcjZMcwfzKk9T1LREF_3ft7kZzkrY0GPGpOdzByXN1tKEDTBGDNse9D-AzAHmNXG9bBtC-sA"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 border border-cyan-500/40 text-cyan-400 font-mono text-[10px] uppercase tracking-wider backdrop-blur-md">
+                  Interactive Journal
+                </span>
+              </div>
+
+              <div class="p-6">
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">
+                  Lahore to Bukhara
+                </h3>
+                <span class="block font-mono text-xs text-cyan-400 mt-1 mb-3">Interactive Traveler's Platform</span>
+                <div class="flex flex-wrap gap-1.5 mb-4 font-mono text-[11px]">
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">PHP</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">MySQL</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">Bootstrap 5</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-slate-800 pt-4">
+              <button class="inline-flex items-center gap-1.5 font-mono text-xs text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer" onclick="openProjectModal(2)">
+                <span class="material-symbols-outlined text-[16px]">visibility</span>
+                <span>Quick View</span>
+              </button>
+              <a class="inline-flex items-center gap-1 font-mono text-xs text-cyan-400 hover:underline" href="#contact">
+                <span>View Story</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+
+
+
+          <!-- Project 5: Stroke Prediction ML Healthcare System -->
+          <div class="glass-card spotlight-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:-translate-y-2 transition-all duration-300 shadow-2xl border border-slate-700 hover:border-blue-400/50 gsap-reveal tilt-card">
+            <div>
+              <div class="px-4 py-3 bg-slate-900 border-b border-slate-700 flex items-center justify-between font-mono text-[11px]">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block"></span>
+                </div>
+                <span class="text-slate-400 truncate max-w-[170px]">stroke-ml.health.node</span>
+                <span class="material-symbols-outlined text-slate-500 text-[14px]">lock</span>
+              </div>
+
+              <div class="relative h-52 w-full img-zoom-container bg-slate-950">
+                <img alt="Stroke Prediction ML System Screenshot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSiMh6SrJcmldvAAzECN7LG6ikYk2WAGmKa8fn1XZkxlxoLJLjEcJ28TjDdUSt3tkrqFOQ5rJadhzmQ2JgR2SiGvSDhyzdv8M7HIc8hWmN-MSGccuPJbE0ucBUMT0rrOS5DzFrE-_0aDoOWiksI0eLhAAX01U1--4MbsoES2loFjP2U30xOCtL50W6qIFvcEEcPfsD1cc7jStzn-873vXz-7u12JLWqYDN-aRFVYWT5g85EbTUjKG59g"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 border border-blue-500/40 text-blue-300 font-mono text-[10px] uppercase tracking-wider backdrop-blur-md">
+                  HealthTech ML
+                </span>
+              </div>
+
+              <div class="p-6">
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-blue-400 transition-colors">
+                  Stroke Prediction ML System
+                </h3>
+                <span class="block font-mono text-xs text-blue-300 mt-1 mb-3">Predictive Clinical Dashboard</span>
+                <div class="flex flex-wrap gap-1.5 mb-4 font-mono text-[11px]">
+                  <span class="px-2 py-0.5 rounded bg-blue-950 border border-blue-500/40 text-blue-300">Machine Learning</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">PHP Web Bridge</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-slate-800 pt-4">
+              <button class="inline-flex items-center gap-1.5 font-mono text-xs text-slate-400 hover:text-blue-400 transition-colors cursor-pointer" onclick="openProjectModal(3)">
+                <span class="material-symbols-outlined text-[16px]">visibility</span>
+                <span>Quick View</span>
+              </button>
+              <a class="inline-flex items-center gap-1 font-mono text-xs text-blue-400 hover:underline" href="#contact">
+                <span>View System</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 7. EXPERIENCE & AWARDS SECTION                                            -->
+    <!-- ========================================================================= -->
+    <section class="py-20 relative" id="experience">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="flex items-center gap-4 mb-12 gsap-reveal">
+          <span class="font-mono text-xs tracking-widest uppercase font-bold text-blue-400">04. EXPERIENCE &amp; RECOGNITION</span>
+          <div class="h-px flex-1 bg-gradient-to-r from-slate-800 via-slate-800 to-transparent"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          <!-- Timeline Column (7 Cols) -->
+          <div class="lg:col-span-7 gsap-reveal">
+            <h3 class="font-display font-bold text-xl text-white mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-blue-400">timeline</span>
+              Career Progression
+            </h3>
+            
+            <div class="relative pl-6 border-l-2 border-blue-500/30 space-y-8 ml-2">
+              
+              <!-- Timeline Item 1 -->
+              <div class="relative group">
+                <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-slate-950 border-2 border-blue-400 shadow-[0_0_10px_rgba(88,166,255,0.8)]"></div>
+                <div class="glass-card spotlight-card rounded-xl p-6 hover:border-blue-500/40 transition-all">
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <h4 class="font-display font-bold text-base text-white">Software Engineer</h4>
+                    <span class="px-2.5 py-0.5 rounded-full bg-blue-950 border border-blue-500/40 font-mono text-[11px] text-blue-300">
+                      09/2024 – Present
+                    </span>
+                  </div>
+                  <span class="font-mono text-xs text-blue-400 block mb-3 font-semibold">eMythMakers.com • Dhaka, Bangladesh</span>
+                  <ul class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                    <li class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-blue-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                      <span>Full-stack web application development utilizing PHP, Laravel, MySQL, and JavaScript for enterprise and bespoke client systems.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-blue-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                      <span>Direct client collaboration: requirement scoping, milestone reviews, and production releases.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-blue-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                      <span>Refactored database queries, structured indexes, and modularized legacy controllers for a ~30% page speed increase.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Timeline Item 2 -->
+              <div class="relative group">
+                <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-slate-950 border-2 border-slate-600"></div>
+                <div class="glass-card spotlight-card rounded-xl p-6 hover:border-slate-700 transition-all">
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <h4 class="font-display font-bold text-base text-white">Junior Software Engineer</h4>
+                    <span class="px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 font-mono text-[11px] text-slate-400">
+                      07/2023 – 08/2024
+                    </span>
+                  </div>
+                  <span class="font-mono text-xs text-cyan-400 block mb-3 font-semibold">eMythMakers.com</span>
+                  <ul class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                    <li class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-cyan-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                      <span>Developed responsive frontend layouts, interactive forms, and cross-browser optimized interfaces.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-cyan-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                      <span>Implemented AJAX asynchronous calls with jQuery connected to secure PHP backend controllers.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="material-symbols-outlined text-cyan-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                      <span>Assisted in team code reviews, bug fixes, and continuous staging server validations.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Dedicated Glowing Spotlight Award Card (5 Cols) -->
+          <div class="lg:col-span-5 gsap-reveal" id="recognition">
+            <h3 class="font-display font-bold text-xl text-white mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-amber-400">workspace_premium</span>
+              Honors &amp; Recognition
+            </h3>
+            
+            <div class="relative rounded-2xl p-7 bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950/40 border border-amber-500/40 shadow-2xl overflow-hidden group tilt-card">
+              <div class="absolute -right-12 -top-12 w-40 h-40 bg-amber-500/15 rounded-full blur-2xl pointer-events-none"></div>
+              <div class="absolute -left-12 -bottom-12 w-40 h-40 bg-blue-500/15 rounded-full blur-2xl pointer-events-none"></div>
+              
+              <div class="relative z-10">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-inner">
+                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">
+                      military_tech
+                    </span>
+                  </div>
+                  <div>
+                    <span class="px-2.5 py-0.5 rounded-full bg-amber-400/10 border border-amber-400/30 font-mono text-[10px] text-amber-300 font-semibold uppercase tracking-wider">
+                      Annual Company Award
+                    </span>
+                    <h4 class="font-display font-bold text-white text-base mt-1">eMythMakers.com Honors</h4>
+                  </div>
+                </div>
+
+                <h3 class="font-display font-bold text-xl text-amber-200 mb-3 leading-snug">
+                  Most Flourishing / Rising Star of the Year (2024–2025)
+                </h3>
+                <p class="text-xs text-slate-300 leading-relaxed mb-6">
+                  Conferred in recognition of remarkable technical progress, dedicated client delivery, and rapid expertise across full-stack Laravel/MySQL engineering pipelines.
+                </p>
+
+                <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                  <span class="inline-flex items-center gap-1 text-green-400">
+                    <span class="material-symbols-outlined text-[16px]">verified</span>
+                    Official Recognition
+                  </span>
+                  <span>Issued 2024–2025</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 8. CONTACT & FOOTER SECTION                                               -->
+    <!-- ========================================================================= -->
+    <section class="py-20 relative" id="contact">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="flex items-center gap-4 mb-12 gsap-reveal">
+          <span class="font-mono text-xs tracking-widest uppercase font-bold text-blue-400">05. GET IN TOUCH</span>
+          <div class="h-px flex-1 bg-gradient-to-r from-slate-800 via-slate-800 to-transparent"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          <!-- Left Info Column (5 Cols) -->
+          <div class="lg:col-span-5 space-y-6 gsap-reveal">
+            <div>
+              <h2 class="font-display font-bold text-3xl text-white mb-3">
+                Let's build something remarkable.
+              </h2>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Currently open to full-stack developer roles, backend contracts, and bespoke web platforms. Feel free to copy my direct contact or drop a transmission below.
+              </p>
+            </div>
+
+            <!-- Contact Details Cards -->
+            <div class="space-y-3">
+              
+              <!-- Email Card with Copy Button -->
+              <div class="glass-card spotlight-card rounded-xl p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[20px]">mail</span>
+                  </div>
+                  <div>
+                    <span class="block font-mono text-[10px] text-slate-400 uppercase tracking-wider">Email Address</span>
+                    <a class="font-mono text-xs text-white hover:text-blue-400 transition-colors" href="mailto:koushikpaul6211@gmail.com">
+                      koushikpaul6211@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <button class="p-2 rounded-lg bg-slate-900 border border-slate-700 hover:border-blue-500 text-slate-400 hover:text-blue-400 transition-all magnetic-btn cursor-pointer" id="copyEmailBtn" title="Copy Email">
+                  <span class="material-symbols-outlined text-[16px]" id="copyEmailIcon">content_copy</span>
+                </button>
+              </div>
+
+              <!-- Location Card -->
+              <div class="glass-card spotlight-card rounded-xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[20px]">location_on</span>
+                </div>
+                <div>
+                  <span class="block font-mono text-[10px] text-slate-400 uppercase tracking-wider">Location</span>
+                  <span class="font-mono text-xs text-white">Dhaka, Bangladesh</span>
+                </div>
+              </div>
+
+              <!-- Profiles Card -->
+              <div class="glass-card spotlight-card rounded-xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[20px]">hub</span>
+                </div>
+                <div class="flex-1">
+                  <span class="block font-mono text-[10px] text-slate-400 uppercase tracking-wider">Developer Profiles</span>
+                  <div class="flex items-center gap-4 mt-1">
+                    <a class="inline-flex items-center gap-1 font-mono text-xs text-blue-400 hover:underline" href="https://github.com/Koushikpaul7" rel="noreferrer" target="_blank">
+                      <span>GitHub</span>
+                      <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+                    </a>
+                    <a class="inline-flex items-center gap-1 font-mono text-xs text-cyan-400 hover:underline" href="https://linkedin.com/in/koushik-paul" rel="noreferrer" target="_blank">
+                      <span>LinkedIn</span>
+                      <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Availability Beacon Status -->
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-blue-500/30 flex items-center gap-3">
+              <span class="relative flex h-3 w-3 shrink-0">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </span>
+              <p class="text-xs text-slate-300 font-mono">
+                <strong class="text-blue-400">Available:</strong> Open for worldwide remote and on-site full-stack positions.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Right Form Column (7 Cols) -->
+          <div class="lg:col-span-7 glass-card rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-700 gsap-reveal">
+            
+            <!-- Transmission Topic Selector Pills -->
+            <div class="mb-6">
+              <label class="block font-mono text-xs text-slate-400 mb-2 uppercase">Transmission Topic</label>
+              <div class="flex flex-wrap gap-2">
+                <button class="px-3 py-1.5 rounded-lg bg-blue-500/20 text-blue-400 border border-blue-500/40 font-mono text-xs font-medium cursor-pointer" id="topicBtn1" onclick="selectFormTopic('Full-Time Engineer Opportunity')">Full-Time Opportunity</button>
+                <button class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 font-mono text-xs hover:text-slate-200 cursor-pointer" id="topicBtn2" onclick="selectFormTopic('Bespoke Web / Contract Project')">Contract Project</button>
+                <button class="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 font-mono text-xs hover:text-slate-200 cursor-pointer" id="topicBtn3" onclick="selectFormTopic('General Technical Consultation')">General Inquiry</button>
+              </div>
+            </div>
+
+            <form class="space-y-4" id="contactForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-mono text-xs text-slate-300 mb-1.5 uppercase" for="name">
+                    Your Name <span class="text-blue-400">*</span>
+                  </label>
+                  <input class="w-full bg-slate-950/80 rounded-xl px-4 py-3 text-sm text-white border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors placeholder:text-slate-600" id="name" placeholder="Alex Morgan" required="" type="text"/>
+                </div>
+                <div>
+                  <label class="block font-mono text-xs text-slate-300 mb-1.5 uppercase" for="email">
+                    Email Address <span class="text-blue-400">*</span>
+                  </label>
+                  <input class="w-full bg-slate-950/80 rounded-xl px-4 py-3 text-sm text-white border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors placeholder:text-slate-600" id="email" placeholder="alex@domain.com" required="" type="email"/>
+                </div>
+              </div>
+              <div>
+                <label class="block font-mono text-xs text-slate-300 mb-1.5 uppercase" for="subject">
+                  Subject <span class="text-blue-400">*</span>
+                </label>
+                <input class="w-full bg-slate-950/80 rounded-xl px-4 py-3 text-sm text-white border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors placeholder:text-slate-600" id="subject" placeholder="Full-Stack Engineer Opportunity / Project Inquiry" required="" type="text"/>
+              </div>
+              <div>
+                <label class="block font-mono text-xs text-slate-300 mb-1.5 uppercase" for="message">
+                  Message <span class="text-blue-400">*</span>
+                </label>
+                <textarea class="w-full bg-slate-950/80 rounded-xl px-4 py-3 text-sm text-white border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors placeholder:text-slate-600 resize-none" id="message" placeholder="Describe your project requirements, scope, or role specifications..." required="" rows="4"></textarea>
+              </div>
+              
+              <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-green-500 text-slate-950 font-display font-bold text-xs uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/25 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer magnetic-btn" id="submitBtn" type="submit">
+                  <span>Transmit Message</span>
+                  <span class="material-symbols-outlined text-[18px]">send</span>
+                </button>
+                <span class="hidden items-center gap-2 font-mono text-xs text-green-400" id="formFeedback">
+                  <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                  <span>Message dispatched successfully!</span>
+                </span>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER                                                                    -->
+  <!-- ========================================================================= -->
+  <footer class="relative z-10 w-full border-t border-slate-800 bg-slate-950/90 py-8 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full overflow-hidden border border-blue-500/40 p-0.5 bg-slate-900">
+            <img alt="Koushik Paul" class="w-full h-full object-cover rounded-full" src="member_10.jpg"/>
+          </div>
+          <p class="text-xs font-mono text-slate-400">
+            © <span id="currentYear">2026</span> Koushik Paul. GitHub Dark Pro Palette.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-6 font-mono text-xs text-slate-400">
+          <a class="hover:text-blue-400 transition-colors" href="https://github.com/Koushikpaul7" rel="noreferrer" target="_blank">GitHub</a>
+          <a class="hover:text-cyan-400 transition-colors" href="https://linkedin.com/in/koushik-paul" rel="noreferrer" target="_blank">LinkedIn</a>
+          <div class="flex items-center gap-1.5 text-green-400">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse"></span>
+            <span>All Systems Live</span>
+          </div>
+          <a class="hover:text-white transition-colors flex items-center gap-0.5 magnetic-btn" href="#hero">
+            <span>Top</span>
+            <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- ADVANCED STICKY FLOATING BACK TO TOP WIDGET                               -->
+  <!-- ========================================================================= -->
+  <div class="fixed bottom-6 right-6 z-50 opacity-0 scale-75 pointer-events-none" id="stickyBackToTop">
+    <button onclick="scrollToTop()" class="group relative w-12 h-12 rounded-2xl glass-card border border-blue-500/50 flex items-center justify-center text-blue-400 hover:text-white shadow-2xl shadow-blue-500/30 magnetic-btn cursor-pointer overflow-hidden" title="Return to Top">
+      <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 via-blue-500 to-green-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <span class="material-symbols-outlined text-[22px] relative z-10 group-hover:-translate-y-1 transition-transform duration-300 text-slate-100">arrow_upward</span>
+      <!-- Luminous Status Ping Ring -->
+      <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-green-400 animate-ping"></span>
+      <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-green-500"></span>
+      <!-- Hover Tooltip Tag -->
+      <span class="absolute right-14 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 font-mono text-[10px] text-blue-300 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-xl">
+        ~/top
+      </span>
+    </button>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- COMMAND PALETTE OVERLAY MODAL (Ctrl+K)                                    -->
+  <!-- ========================================================================= -->
+  <div class="fixed inset-0 z-50 modal-backdrop hidden flex-col items-center justify-start pt-20 px-4" id="cmdPaletteOverlay">
+    <div class="w-full max-w-2xl glass-card rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col">
+      <div class="p-4 bg-slate-900 border-b border-slate-700 flex items-center gap-3">
+        <span class="material-symbols-outlined text-blue-400">search</span>
+        <input class="flex-1 bg-transparent text-white font-mono text-sm focus:outline-none placeholder:text-slate-500" id="cmdInput" placeholder="Type a command or jump to section (e.g. skills, projects, contact, resume)..." type="text"/>
+        <kbd class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-xs text-slate-400 cursor-pointer" onclick="closeCmdPalette()">ESC</kbd>
+      </div>
+      <div class="p-3 max-h-80 overflow-y-auto space-y-1 font-mono text-xs" id="cmdResults">
+        <div class="p-2 text-slate-500 uppercase tracking-wider text-[10px]">Quick Jump Navigation</div>
+        <div class="p-2 rounded-lg hover:bg-slate-800 cursor-pointer flex items-center justify-between text-slate-200" onclick="navigateAndClose('#terminal-section')">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-purple-400">terminal</span> Live Interactive CLI Terminal</span>
+          <span class="text-slate-500">Jump to #terminal</span>
+        </div>
+        <div class="p-2 rounded-lg hover:bg-slate-800 cursor-pointer flex items-center justify-between text-slate-200" onclick="navigateAndClose('#about')">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-blue-400">person</span> About Koushik Paul</span>
+          <span class="text-slate-500">Jump to #about</span>
+        </div>
+        <div class="p-2 rounded-lg hover:bg-slate-800 cursor-pointer flex items-center justify-between text-slate-200" onclick="navigateAndClose('#skills')">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-cyan-400">code</span> Technical Stack &amp; Skills</span>
+          <span class="text-slate-500">Jump to #skills</span>
+        </div>
+        <div class="p-2 rounded-lg hover:bg-slate-800 cursor-pointer flex items-center justify-between text-slate-200" onclick="navigateAndClose('#projects')">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-green-400">work</span> Featured Projects Portfolio</span>
+          <span class="text-slate-500">Jump to #projects</span>
+        </div>
+        <div class="p-2 rounded-lg hover:bg-slate-800 cursor-pointer flex items-center justify-between text-slate-200" onclick="navigateAndClose('#contact')">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-teal-400">mail</span> Get in Touch / Transmit</span>
+          <span class="text-slate-500">Jump to #contact</span>
+        </div>
+        <div class="p-2 text-slate-500 uppercase tracking-wider text-[10px] mt-2">Actions</div>
+        <div class="p-2 rounded-lg hover:bg-slate-800 cursor-pointer flex items-center justify-between text-blue-400" onclick="copyEmailAction()">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">content_copy</span> Copy Email (koushikpaul6211@gmail.com)</span>
+          <span>Copy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- PROJECT QUICK VIEW LIGHTBOX MODAL                                         -->
+  <!-- ========================================================================= -->
+  <div class="fixed inset-0 z-50 modal-backdrop hidden flex-col items-center justify-center p-4" id="projectModal">
+    <div class="w-full max-w-3xl glass-card rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="p-4 bg-slate-900 border-b border-slate-700 flex items-center justify-between">
+        <h3 class="font-display font-bold text-white text-base" id="modalProjectTitle">Project Details</h3>
+        <button class="text-slate-400 hover:text-white p-1 rounded-lg cursor-pointer" onclick="closeProjectModal()">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-300" id="modalProjectBody">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- INTERACTIVE JS & GSAP ANIMATIONS SCRIPT                                   -->
+  <!-- ========================================================================= -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+    // 1. Theme Switcher System (Standard Developer IDE Palettes)
+    function setAppTheme(themeName) {
+      document.documentElement.setAttribute('data-theme', themeName);
+      localStorage.setItem('koushik_portfolio_theme', themeName);
+    }
+    const savedTheme = localStorage.getItem('koushik_portfolio_theme');
+    if (savedTheme) setAppTheme(savedTheme);
+
+    // 2. Dhaka Time Live Clock & Sticky Back to Top Logic
+    function updateDhakaClock() {
+      const clockEl = document.getElementById('dhakaClock');
+      if (!clockEl) return;
+      const options = { timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      const timeStr = new Intl.DateTimeFormat([], options).format(new Date());
+      clockEl.textContent = `${timeStr} BD (UTC+6)`;
+    }
+    setInterval(updateDhakaClock, 1000);
+    updateDhakaClock();
+
+    const stickyTopBtn = document.getElementById('stickyBackToTop');
+    if (stickyTopBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          gsap.to(stickyTopBtn, { opacity: 1, scale: 1, y: 0, pointerEvents: 'auto', duration: 0.35, ease: 'back.out(1.5)' });
+        } else {
+          gsap.to(stickyTopBtn, { opacity: 0, scale: 0.75, y: 10, pointerEvents: 'none', duration: 0.25, ease: 'power2.in' });
+        }
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 3. GSAP Entrance Timelines & ScrollTrigger Parallax Animations
+    window.addEventListener('DOMContentLoaded', () => {
+      // Top Scroll Progress Bar
+      gsap.to('#scrollProgressBar', {
+        width: '100%',
+        ease: 'none',
+        scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.2 }
+      });
+
+      // Ambient Background Glow Blobs Parallax
+      gsap.to('#glow-blob-1', {
+        y: 300, rotate: 90,
+        scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 }
+      });
+      gsap.to('#glow-blob-2', {
+        y: -250, rotate: -90,
+        scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 }
+      });
+
+      // Header & Hero Entrance
+      gsap.from('.gsap-header-reveal', { y: -40, opacity: 0, duration: 1, ease: 'power3.out' });
+      gsap.from('.gsap-hero-item', { y: 35, opacity: 0, duration: 0.9, stagger: 0.15, ease: 'power3.out', delay: 0.2 });
+      gsap.from('.gsap-hero-portrait', { scale: 0.8, opacity: 0, duration: 1.2, ease: 'back.out(1.4)', delay: 0.4 });
+
+      // Parallax Hero Portrait on Scroll
+      gsap.to('.gsap-hero-portrait', {
+        y: 60, scale: 0.95,
+        scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
+      });
+
+      // Floating Pills Bobbing Animation
+      gsap.to('.gsap-float-pill-1', { y: -10, duration: 2.5, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+      gsap.to('.gsap-float-pill-2', { y: -12, duration: 3.1, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.5 });
+      gsap.to('.gsap-float-pill-3', { y: -9, duration: 2.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1 });
+      gsap.to('.gsap-float-pill-4', { y: -11, duration: 3.3, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.7 });
+
+      // Dynamic Role Text Switcher
+      const roles = [
+        'High-Performance Web Applications',
+        'Robust Laravel & PHP Architectures',
+        'Optimized MySQL Relational Schemas',
+        'Interactive & Responsive UIs'
+      ];
+      let roleIdx = 0;
+      function cycleRoleText() {
+        roleIdx = (roleIdx + 1) % roles.length;
+        gsap.to('#gsap-typed-role', { duration: 1.4, text: roles[roleIdx], ease: 'none', delay: 2.5, onComplete: cycleRoleText });
+      }
+      setTimeout(cycleRoleText, 1000);
+
+      // Section Headings & General Reveal Trigger
+      gsap.utils.toArray('.gsap-reveal').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 30, opacity: 0 },
+          {
+            scrollTrigger: { trigger: el, start: 'top 92%', toggleActions: 'play none none none' },
+            y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', clearProps: 'opacity,transform'
+          }
+        );
+      });
+
+      // Stat Counters ScrollTrigger Count-Up
+      gsap.utils.toArray('.gsap-counter').forEach((counter) => {
+        const target = parseInt(counter.getAttribute('data-target') || '0', 10);
+        gsap.fromTo(counter, { textContent: 0 }, {
+          scrollTrigger: { trigger: counter, start: 'top 92%' },
+          textContent: target, duration: 1.6, snap: { textContent: 1 }, ease: 'power1.out',
+          onUpdate: function() { counter.textContent = Math.ceil(counter.textContent) + '+'; }
+        });
+      });
+
+      // Skills Cards Safe 3D Pop Reveal
+      const skillCards = document.querySelectorAll('#skillsGrid .skill-item');
+      if (skillCards.length > 0) {
+        gsap.fromTo(skillCards,
+          { y: 40, opacity: 0, scale: 0.9, rotateX: 12 },
+          {
+            scrollTrigger: { trigger: '#skills', start: 'top 88%' },
+            y: 0, opacity: 1, scale: 1, rotateX: 0, duration: 0.8, stagger: 0.12, ease: 'back.out(1.4)', clearProps: 'opacity,transform'
+          }
+        );
+      }
+
+      // Animated Skill Progress Bars
+      document.querySelectorAll('.skill-item').forEach(card => {
+        const bar = card.querySelector('.h-full');
+        if (bar) {
+          const finalW = bar.style.width || '90%';
+          gsap.fromTo(bar, { width: '0%' }, {
+            scrollTrigger: { trigger: card, start: 'top 92%' },
+            width: finalW, duration: 1.2, ease: 'power3.out'
+          });
+        }
+      });
+
+      // Featured Projects Safe 3D Card Reveal
+      const projCards = document.querySelectorAll('#projects .glass-card');
+      if (projCards.length > 0) {
+        gsap.fromTo(projCards,
+          { y: 45, opacity: 0, scale: 0.92, rotateY: -8 },
+          {
+            scrollTrigger: { trigger: '#projects', start: 'top 85%' },
+            y: 0, opacity: 1, scale: 1, rotateY: 0, duration: 0.85, stagger: 0.15, ease: 'back.out(1.2)', clearProps: 'opacity,transform'
+          }
+        );
+      }
+
+      // Career Timeline & Awards Safe ScrollTrigger Reveal
+      const expCards = document.querySelectorAll('#experience .group');
+      if (expCards.length > 0) {
+        gsap.fromTo(expCards,
+          { x: -40, opacity: 0 },
+          {
+            scrollTrigger: { trigger: '#experience', start: 'top 85%' },
+            x: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power2.out', clearProps: 'opacity,transform'
+          }
+        );
+      }
+
+      const recogCard = document.getElementById('recognition');
+      if (recogCard) {
+        gsap.fromTo(recogCard,
+          { x: 40, opacity: 0, scale: 0.95 },
+          {
+            scrollTrigger: { trigger: '#recognition', start: 'top 85%' },
+            x: 0, opacity: 1, scale: 1, duration: 0.85, ease: 'back.out(1.2)', clearProps: 'opacity,transform'
+          }
+        );
+      }
+
+      // Force refresh ScrollTrigger to ensure correct layout offset measurements
+      setTimeout(() => { ScrollTrigger.refresh(); }, 400);
+    });
+
+    // 4. Interactive Custom Cursor Follower & Mouse Physics
+    const cursor = document.getElementById('customCursor');
+    const cursorDot = document.getElementById('customCursorDot');
+    if (cursor && cursorDot) {
+      window.addEventListener('mousemove', (e) => {
+        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.25, ease: 'power2.out' });
+        gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0.05 });
+      });
+      document.querySelectorAll('a, button, input, textarea, .glass-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          gsap.to(cursor, { scale: 1.6, borderColor: '#3fb950', backgroundColor: 'rgba(63, 185, 80, 0.12)', duration: 0.2 });
+        });
+        el.addEventListener('mouseleave', () => {
+          gsap.to(cursor, { scale: 1, borderColor: 'rgba(88, 166, 255, 0.5)', backgroundColor: 'rgba(88, 166, 255, 0.1)', duration: 0.2 });
+        });
+      });
+    }
+
+    // 5. Mouse Spotlight, 3D Card Tilt & Advanced Interactive Card Physics
+    document.querySelectorAll('.spotlight-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // Glass Card General Border Shimmer & Hover Glow
+    document.querySelectorAll('.glass-card').forEach((card) => {
+      card.addEventListener('mouseenter', () => {
+        if (!card.classList.contains('highlight-card')) {
+          gsap.to(card, {
+            borderColor: 'rgba(88, 166, 255, 0.65)',
+            boxShadow: '0 14px 40px -10px rgba(88, 166, 255, 0.3)',
+            y: -5,
+            duration: 0.35,
+            ease: 'power2.out'
+          });
+        }
+      });
+      card.addEventListener('mouseleave', () => {
+        if (!card.classList.contains('highlight-card')) {
+          gsap.to(card, {
+            borderColor: 'var(--surface-border)',
+            boxShadow: '0 4px 20px -5px rgba(0, 0, 0, 0.5)',
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out'
+          });
+        }
+      });
+
+      // Interactive Click Shockwave Ripple Physics
+      card.addEventListener('click', (e) => {
+        const rect = card.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        ripple.style.cssText = `
+          position: absolute;
+          left: ${x}px; top: ${y}px;
+          width: 20px; height: 20px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(88, 166, 255, 0.6) 0%, rgba(63, 185, 80, 0.2) 70%, transparent 100%);
+          pointer-events: none;
+          transform: translate(-50%, -50%);
+          z-index: 30;
+        `;
+        card.appendChild(ripple);
+
+        gsap.to(ripple, {
+          scale: 15,
+          opacity: 0,
+          duration: 0.65,
+          ease: 'power2.out',
+          onComplete: () => ripple.remove()
+        });
+      });
+    });
+
+    // Skill Card Hover Icon Wobble, Tag Stagger & Badge Pulse
+    document.querySelectorAll('.skill-item').forEach((card) => {
+      const icon = card.querySelector('.font-display.text-2xl');
+      const badge = card.querySelector('span.rounded-full');
+      const tags = card.querySelectorAll('.flex-wrap span');
+
+      card.addEventListener('mouseenter', () => {
+        if (icon) gsap.to(icon, { y: -7, scale: 1.25, rotate: 12, duration: 0.35, ease: 'back.out(2)' });
+        if (badge) gsap.to(badge, { scale: 1.12, duration: 0.3, ease: 'back.out(2)' });
+        if (tags.length > 0) gsap.to(tags, { x: (i) => (i + 1) * 2, duration: 0.3, stagger: 0.05, ease: 'power2.out' });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (icon) gsap.to(icon, { y: 0, scale: 1, rotate: 0, duration: 0.3, ease: 'power2.out' });
+        if (badge) gsap.to(badge, { scale: 1, duration: 0.3, ease: 'power2.out' });
+        if (tags.length > 0) gsap.to(tags, { x: 0, duration: 0.3, ease: 'power2.out' });
+      });
+    });
+
+    // Project Cards Image Parallax, Title Lift & Window Control Pulse
+    document.querySelectorAll('#projects .glass-card').forEach((card) => {
+      const img = card.querySelector('.img-zoom-container img');
+      const btn = card.querySelector('button');
+      const title = card.querySelector('h3');
+      const dots = card.querySelectorAll('.px-4.py-3 span.rounded-full');
+
+      card.addEventListener('mouseenter', () => {
+        if (img) gsap.to(img, { scale: 1.09, y: -4, duration: 0.5, ease: 'power2.out' });
+        if (btn) gsap.to(btn, { x: 4, color: '#58a6ff', duration: 0.3, ease: 'power2.out' });
+        if (title) gsap.to(title, { y: -2, color: '#79c0ff', duration: 0.3, ease: 'power2.out' });
+        if (dots.length > 0) gsap.to(dots, { scale: 1.3, stagger: 0.06, duration: 0.25, yoyo: true, repeat: 1, ease: 'back.out(2)' });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (img) gsap.to(img, { scale: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+        if (btn) gsap.to(btn, { x: 0, color: '#94a3b8', duration: 0.3, ease: 'power2.out' });
+        if (title) gsap.to(title, { y: 0, color: '#ffffff', duration: 0.3, ease: 'power2.out' });
+        if (dots.length > 0) gsap.to(dots, { scale: 1, duration: 0.25, ease: 'power2.out' });
+      });
+    });
+
+    // Tactile Click Spring Feedback
+    document.querySelectorAll('.glass-card').forEach((card) => {
+      card.addEventListener('mousedown', () => {
+        gsap.to(card, { scale: 0.975, duration: 0.1 });
+      });
+      card.addEventListener('mouseup', () => {
+        gsap.to(card, { scale: 1, duration: 0.25, ease: 'back.out(1.6)' });
+      });
+    });
+
+    // 3D Perspective Multi-Axis Tilt Tracking
+    document.querySelectorAll('.tilt-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        gsap.to(card, { rotateY: x * 0.06, rotateX: -y * 0.06, transformPerspective: 1000, duration: 0.25, ease: 'power1.out' });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5, ease: 'power2.out' });
+      });
+    });
+
+    // Magnetic Button Attractions
+    document.querySelectorAll('.magnetic-btn').forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        gsap.to(btn, { x: (e.clientX - rect.left - rect.width / 2) * 0.3, y: (e.clientY - rect.top - rect.height / 2) * 0.3, duration: 0.3, ease: 'power2.out' });
+      });
+      btn.addEventListener('mouseleave', () => { gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' }); });
+    });
+
+    // 5. Interactive Particle Canvas
+    (function initParticleCanvas() {
+      const canvas = document.getElementById('particle-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+      let mouse = { x: null, y: null, radius: 150 };
+
+      window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+      window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        initParticles();
+      });
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * 0.6;
+          this.vy = (Math.random() - 0.5) * 0.6;
+          this.radius = Math.random() * 1.5 + 0.8;
+          this.color = Math.random() > 0.5 ? 'rgba(88, 166, 255, ' : 'rgba(63, 185, 80, ';
+          this.alpha = Math.random() * 0.4 + 0.2;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color + this.alpha + ')';
+          ctx.fill();
+        }
+        update() {
+          this.x += this.vx; this.y += this.vy;
+          if (this.x < 0 || this.x > width) this.vx = -this.vx;
+          if (this.y < 0 || this.y > height) this.vy = -this.vy;
+          if (mouse.x !== null && mouse.y !== null) {
+            let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < mouse.radius) {
+              const force = (mouse.radius - dist) / mouse.radius;
+              this.x -= (dx / dist) * force * 1.6;
+              this.y -= (dy / dist) * force * 1.6;
+            }
+          }
+          this.draw();
+        }
+      }
+
+      let particles = [];
+      function initParticles() {
+        particles = [];
+        const count = Math.min(Math.floor((width * height) / 16000), 75);
+        for (let i = 0; i < count; i++) particles.push(new Particle());
+      }
+
+      function connect() {
+        for (let a = 0; a < particles.length; a++) {
+          for (let b = a + 1; b < particles.length; b++) {
+            let dx = particles[a].x - particles[b].x; let dy = particles[a].y - particles[b].y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 110) {
+              let opacity = 1 - dist / 110;
+              ctx.strokeStyle = `rgba(88, 166, 255, ${opacity * 0.12})`;
+              ctx.lineWidth = 0.8;
+              ctx.beginPath();
+              ctx.moveTo(particles[a].x, particles[a].y);
+              ctx.lineTo(particles[b].x, particles[b].y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < particles.length; i++) particles[i].update();
+        connect();
+        requestAnimationFrame(animate);
+      }
+      initParticles();
+      animate();
+    })();
+
+    // 6. CLI Terminal Logic
+    const terminalForm = document.getElementById('terminalForm');
+    const terminalInput = document.getElementById('terminalInput');
+    const terminalOutput = document.getElementById('terminalOutput');
+
+    if (terminalForm && terminalInput && terminalOutput) {
+      terminalForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const cmd = terminalInput.value.trim().toLowerCase();
+        if (!cmd) return;
+
+        appendTerminalLine(`$ ${terminalInput.value}`, 'text-blue-400 font-bold');
+        terminalInput.value = '';
+
+        setTimeout(() => {
+          switch (cmd) {
+            case 'help':
+              appendTerminalLine(`Commands: about, skills, projects, experience, contact, theme <name>, sudo hire, clear`, 'text-slate-300');
+              break;
+            case 'about':
+              appendTerminalLine(`Koushik Paul is a Full-Stack Software Engineer specializing in PHP 8+, Laravel, MySQL, JavaScript & jQuery at eMythMakers.com.`, 'text-cyan-300');
+              break;
+            case 'skills':
+              appendTerminalLine(`Core Stack: PHP 8+, Laravel (94%), MySQL (90%), JS ES6+ (88%), jQuery/AJAX & Tailwind CSS.`, 'text-green-300');
+              break;
+            case 'projects':
+              appendTerminalLine(`1. Amitabh Reza Chowdhury Portfolio\n2. Lahore to Bukhara Travel Journal\n3. Stroke Prediction ML Healthcare System`, 'text-blue-300');
+              break;
+            case 'experience':
+              appendTerminalLine(`• Software Engineer @ eMythMakers.com (09/2024 - Present)\n• Junior Software Engineer @ eMythMakers.com (07/2023 - 08/2024)\n• Recipient of Rising Star of the Year Award.`, 'text-purple-300');
+              break;
+            case 'contact':
+              appendTerminalLine(`Email: koushikpaul6211@gmail.com\nLocation: Dhaka, Bangladesh\nGitHub: github.com/Koushikpaul7`, 'text-green-400');
+              break;
+            case 'sudo hire':
+              appendTerminalLine(`Navigating to contact transmission protocol area...`, 'text-purple-400 font-bold');
+              window.location.hash = '#contact';
+              break;
+            case 'clear':
+              terminalOutput.innerHTML = '';
+              return;
+            default:
+              if (cmd.startsWith('theme ')) {
+                const tName = cmd.replace('theme ', '').trim();
+                if (['github', 'vscode', 'jetbrains', 'nord'].includes(tName)) {
+                  setAppTheme(tName);
+                  appendTerminalLine(`Theme accent switched to '${tName}'.`, 'text-blue-400');
+                } else {
+                  appendTerminalLine(`Options: github, vscode, jetbrains, nord.`, 'text-rose-400');
+                }
+              } else {
+                appendTerminalLine(`Command not recognized: '${cmd}'. Type 'help'.`, 'text-rose-400');
+              }
+          }
+          terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }, 150);
+      });
+    }
+
+    function appendTerminalLine(text, cssClass = '') {
+      const line = document.createElement('div');
+      line.className = cssClass;
+      line.textContent = text;
+      terminalOutput.appendChild(line);
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+
+    // 7. Skill Category Filter
+    function filterSkills(category) {
+      document.querySelectorAll('#skills .flex-wrap button').forEach(b => {
+        b.className = "px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white font-mono text-xs transition-all cursor-pointer";
+      });
+      const activeBtn = document.getElementById(`filterBtn${category.charAt(0).toUpperCase() + category.slice(1)}`);
+      if (activeBtn) activeBtn.className = "px-4 py-2 rounded-xl bg-blue-500 text-slate-950 font-mono text-xs font-bold shadow-lg shadow-blue-500/20 transition-all cursor-pointer";
+
+      document.querySelectorAll('.skill-item').forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          gsap.to(item, { display: 'flex', opacity: 1, scale: 1, duration: 0.4 });
+        } else {
+          gsap.to(item, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => item.style.display = 'none' });
+        }
+      });
+    }
+
+    // 8. Project Quick View Lightbox Modal Logic
+    const projectDetails = {
+      1: {
+        title: 'Amitabh Reza Chowdhury Portfolio',
+        body: `<div class="space-y-4">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkWWh_6xTPCoPX-G-qaWpugf_ALuDVdc6vvcJjp3tZZZS04nAomdve9FjX-hrUAQKv6uJNzg2BEnGqiN0pjDfeBtBskEztCnRKaFlXgsTwtlZnyfME_98Gl-tRKHip-v539-70KZsU-esFU9733JOLo614OD40jIniEx3Ceo_f9iLbrvVo7IQjM_5dqywG5wQ9IynachUu0phuPa_2EjrKx-kvDA54GwhF1SRn_Y8ufXDTY6vPbPo3Aw" class="w-full h-48 object-cover rounded-xl border border-slate-700"/>
+          <p>Full dynamic media portfolio for acclaimed film director Amitabh Reza Chowdhury built at eMythMakers.com.</p>
+          <h4 class="font-bold text-white font-mono text-xs uppercase">Key Highlights:</h4>
+          <ul class="list-disc pl-5 space-y-1 text-slate-300">
+            <li>Custom administrative dashboard to update media reels, press coverages, and project timelines.</li>
+            <li>Optimized video asset lazy-loading and responsive image rendering.</li>
+            <li>Built with PHP, MySQL, jQuery, and custom CSS grid architectures.</li>
+          </ul>
+        </div>`
+      },
+      2: {
+        title: 'Lahore to Bukhara Travel Journal',
+        body: `<div class="space-y-4">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_30P8ptqrJiwQ1_wp_ibWE7UG2FsbA0RIlSxk8XwwHRReFfIeNXU4TnB4Ozb35bqzNr6FjleuHgt8i0kHuGv9ASw9gW8gmPLCIY1XeQ-DBubpIs-R4DTAchURSdOvfaa2ph9PLR48nOfUDeF8NzB6N6qjShFKzgDrumSGO6NglCJNMmkcjZMcwfzKk9T1LREF_3ft7kZzkrY0GPGpOdzByXN1tKEDTBGDNse9D-AzAHmNXG9bBtC-sA" class="w-full h-48 object-cover rounded-xl border border-slate-700"/>
+          <p>Interactive multimedia journal chronicling cultural expedition milestones across Central and South Asia.</p>
+          <h4 class="font-bold text-white font-mono text-xs uppercase">Key Highlights:</h4>
+          <ul class="list-disc pl-5 space-y-1 text-slate-300">
+            <li>Interactive map navigation linking expedition chapters with photo galleries.</li>
+            <li>Responsive Bootstrap 5 layout integrated with secure PHP query backends.</li>
+            <li>Cross-browser testing & fast asset delivery pipeline.</li>
+          </ul>
+        </div>`
+      },
+      3: {
+        title: 'Stroke Prediction Machine Learning System',
+        body: `<div class="space-y-4">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSiMh6SrJcmldvAAzECN7LG6ikYk2WAGmKa8fn1XZkxlxoLJLjEcJ28TjDdUSt3tkrqFOQ5rJadhzmQ2JgR2SiGvSDhyzdv8M7HIc8hWmN-MSGccuPJbE0ucBUMT0rrOS5DzFrE-_0aDoOWiksI0eLhAAX01U1--4MbsoES2loFjP2U30xOCtL50W6qIFvcEEcPfsD1cc7jStzn-873vXz-7u12JLWqYDN-aRFVYWT5g85EbTUjKG59g" class="w-full h-48 object-cover rounded-xl border border-slate-700"/>
+          <p>Predictive clinical assessment application calculating stroke vulnerability from physiological criteria.</p>
+          <h4 class="font-bold text-white font-mono text-xs uppercase">Key Highlights:</h4>
+          <ul class="list-disc pl-5 space-y-1 text-slate-300">
+            <li>Machine Learning model integration bridge for real-time risk assessment.</li>
+            <li>Patient parameter intake form with instant diagnostic readouts.</li>
+            <li>Structured MySQL database for historical query analysis.</li>
+          </ul>
+        </div>`
+      }
+    };
+
+    function openProjectModal(pId) {
+      const modal = document.getElementById('projectModal');
+      const data = projectDetails[pId];
+      if (!modal || !data) return;
+      document.getElementById('modalProjectTitle').textContent = data.title;
+      document.getElementById('modalProjectBody').innerHTML = data.body;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeProjectModal() {
+      const modal = document.getElementById('projectModal');
+      if (modal) {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
+    }
+
+    // 9. Command Palette Overlay (Ctrl+K) Logic
+    const cmdOverlay = document.getElementById('cmdPaletteOverlay');
+    const cmdBtn = document.getElementById('cmdPaletteBtn');
+    if (cmdBtn) cmdBtn.addEventListener('click', openCmdPalette);
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openCmdPalette(); }
+      if (e.key === 'Escape') { closeCmdPalette(); closeProjectModal(); }
+    });
+
+    function openCmdPalette() {
+      if (!cmdOverlay) return;
+      cmdOverlay.classList.remove('hidden'); cmdOverlay.classList.add('flex');
+      document.getElementById('cmdInput')?.focus();
+    }
+    function closeCmdPalette() {
+      if (!cmdOverlay) return;
+      cmdOverlay.classList.remove('flex'); cmdOverlay.classList.add('hidden');
+    }
+    function navigateAndClose(selector) { closeCmdPalette(); window.location.hash = selector; }
+    function copyEmailAction() {
+      navigator.clipboard.writeText('koushikpaul6211@gmail.com');
+      alert('Email copied to clipboard!'); closeCmdPalette();
+    }
+
+    // Mobile Menu Drawer Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    if (mobileMenuBtn && mobileDrawer) {
+      mobileMenuBtn.addEventListener('click', () => { mobileDrawer.classList.toggle('hidden'); });
+    }
+
+    // Email Copy Button
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    const copyEmailIcon = document.getElementById('copyEmailIcon');
+    if (copyEmailBtn && copyEmailIcon) {
+      copyEmailBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('koushikpaul6211@gmail.com').then(() => {
+          copyEmailIcon.textContent = 'check';
+          copyEmailBtn.classList.add('text-blue-400', 'border-blue-500');
+          setTimeout(() => { copyEmailIcon.textContent = 'content_copy'; copyEmailBtn.classList.remove('text-blue-400', 'border-blue-500'); }, 2000);
+        });
+      });
+    }
+
+    function selectFormTopic(topicName) {
+      document.getElementById('subject').value = topicName;
+    }
+
+    function handleFormSubmit() {
+      const btn = document.getElementById('submitBtn');
+      const feedback = document.getElementById('formFeedback');
+      if (!btn) return;
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Transmitting...</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">done_all</span><span>Dispatched</span>`;
+        if (feedback) { feedback.classList.remove('hidden'); feedback.classList.add('flex'); }
+        document.getElementById('contactForm')?.reset();
+        setTimeout(() => { btn.disabled = false; btn.innerHTML = `<span>Transmit Message</span><span class="material-symbols-outlined text-[18px]">send</span>`; }, 4000);
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
