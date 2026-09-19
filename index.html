@@ -110,10 +110,23 @@
       --accent-amber: #ebcb8b;
     }
 
+    html {
+      overflow-x: clip;
+    }
+
     body {
       background-color: var(--canvas);
       color: #c9d1d9;
-      overflow-x: hidden;
+      overflow-x: clip;
+      width: 100%;
+      position: relative;
+    }
+
+    header.sticky {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 1rem;
+      z-index: 50;
     }
 
     .tech-grid-bg {
@@ -235,7 +248,7 @@
       transform: translateY(0) scale(1);
       pointer-events: auto;
       visibility: visible;
-      max-height: 90vh;
+      max-height: calc(100vh - 5.5rem);
     }
   </style>
 </head>
@@ -251,28 +264,30 @@
   <div class="fixed w-8 h-8 rounded-full border border-sky-400/50 bg-sky-500/10 pointer-events-none z-[999] transition-transform duration-75 -translate-x-1/2 -translate-y-1/2 hidden md:block" id="customCursor"></div>
   <div class="fixed w-2 h-2 rounded-full bg-sky-400 pointer-events-none z-[999] -translate-x-1/2 -translate-y-1/2 hidden md:block" id="customCursorDot"></div>
 
-  <!-- Ambient Glow Blobs & Tech Grid Overlay -->
-  <div class="fixed inset-0 tech-grid-bg pointer-events-none z-0 opacity-40"></div>
-  <div class="fixed -top-40 -left-40 w-[550px] h-[550px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none z-0" id="glow-blob-1"></div>
-  <div class="fixed top-1/3 -right-32 w-[600px] h-[600px] bg-sky-500/8 rounded-full blur-[150px] pointer-events-none z-0" id="glow-blob-2"></div>
+  <!-- Ambient Background Container with Strict Overflow Clip -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="absolute inset-0 tech-grid-bg opacity-40"></div>
+    <div class="absolute -top-40 -left-40 w-[550px] h-[550px] bg-blue-500/10 rounded-full blur-[140px]" id="glow-blob-1"></div>
+    <div class="absolute top-1/3 -right-32 w-[600px] h-[600px] bg-sky-500/8 rounded-full blur-[150px]" id="glow-blob-2"></div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- 1. STICKY FLOATING GLASSMORPHISM NAVBAR                                   -->
   <!-- ========================================================================= -->
-  <header class="sticky top-4 z-50 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto gsap-header-reveal">
-    <div class="glass-card rounded-2xl px-4 sm:px-6 h-16 flex items-center justify-between shadow-2xl border border-slate-700/80">
+  <header class="sticky top-4 z-50 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="glass-card rounded-2xl px-4 sm:px-6 h-16 flex items-center justify-between shadow-2xl border border-slate-700/80 gsap-header-reveal">
       
       <!-- Monogram Brand Logo (<K>) -->
-      <a class="flex items-center gap-3 group magnetic-btn" href="#hero">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-blue-500 to-sky-400 p-0.5 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-mono font-bold text-transparent bg-clip-text bg-gradient-to-tr from-blue-400 to-sky-300 text-base">&lt;K&gt;</div>
+      <a class="flex items-center gap-2.5 sm:gap-3 group magnetic-btn shrink-0" href="#hero">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-blue-500 to-sky-400 p-0.5 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform shrink-0">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-mono font-bold text-transparent bg-clip-text bg-gradient-to-tr from-blue-400 to-sky-300 text-sm sm:text-base">&lt;K&gt;</div>
         </div>
         <div class="flex flex-col">
-          <span class="font-display font-bold text-white text-base tracking-tight flex items-center gap-1">
+          <span class="font-display font-bold text-white text-sm sm:text-base tracking-tight flex items-center gap-1">
             KOUSHIK<span class="text-sky-400">.dev</span>
-            <span class="inline-block w-1.5 h-4 bg-sky-400 animate-pulse"></span>
+            <span class="inline-block w-1.5 h-3.5 sm:h-4 bg-sky-400 animate-pulse"></span>
           </span>
-          <span class="font-mono text-[10px] text-slate-400 tracking-wider">FULL-STACK ENGINEER</span>
+          <span class="font-mono text-[9px] sm:text-[10px] text-slate-400 tracking-wider">FULL-STACK ENGINEER</span>
         </div>
       </a>
 
@@ -357,8 +372,8 @@
       </div>
     </div>
 
-    <!-- Custom Interactive Animated Mobile Drawer -->
-    <div class="lg:hidden drawer-closed glass-card rounded-2xl mt-2 p-4 sm:p-5 border border-slate-700/90 shadow-2xl backdrop-blur-2xl bg-slate-950/95 overflow-hidden" id="mobileDrawer">
+    <!-- Custom Interactive Animated Mobile Drawer (Smooth Touch Scrollable) -->
+    <div class="lg:hidden drawer-closed glass-card rounded-2xl mt-2 p-4 sm:p-5 border border-slate-700/90 shadow-2xl backdrop-blur-2xl bg-slate-950/95 overflow-y-auto max-h-[calc(100vh-5.5rem)] overscroll-contain" id="mobileDrawer">
       
       <!-- Status & Availability Banner -->
       <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-700/70 mb-3.5 flex items-center justify-between">
@@ -522,7 +537,7 @@
   <!-- ========================================================================= -->
   <!-- 2. HERO SECTION                                                           -->
   <!-- ========================================================================= -->
-  <main class="relative z-10">
+  <main class="relative z-10 overflow-x-clip">
     <section class="pt-10 md:pt-16 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="hero">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         
@@ -539,9 +554,9 @@
           </div>
 
           <!-- Dynamic GSAP Typing Title -->
-          <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] gsap-hero-item">
+          <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] gsap-hero-item">
             Software Engineer Crafting 
-            <span class="bg-gradient-to-r from-white via-slate-100 to-sky-400 bg-clip-text text-transparent block mt-1" id="gsap-typed-role">
+            <span class="bg-gradient-to-r from-white via-slate-100 to-sky-400 bg-clip-text text-transparent block mt-1 min-h-[1.25em]" id="gsap-typed-role">
               High-Performance Web Applications
             </span>
           </h1>
@@ -568,61 +583,63 @@
           </div>
 
           <!-- CTAs -->
-          <div class="flex flex-wrap items-center gap-4 pt-4 gsap-hero-item">
-            <a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 text-slate-950 font-display font-bold text-sm tracking-wide shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all magnetic-btn" href="#projects">
+          <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-4 gsap-hero-item w-full sm:w-auto">
+            <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 text-slate-950 font-display font-bold text-sm tracking-wide shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all magnetic-btn" href="#projects">
               <span>Explore Projects</span>
               <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
             </a>
-            <a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl glass-card text-white hover:text-sky-400 hover:border-blue-500/50 font-display font-medium text-sm transition-all magnetic-btn" href="#about">
-              <span class="material-symbols-outlined text-[18px] text-blue-400">person</span>
-              <span>About Me</span>
-            </a>
-            <a class="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/70 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white font-mono text-xs transition-colors magnetic-btn" href="mailto:koushikpaul6211@gmail.com?subject=Resume%20Request%20-%20Koushik%20Paul">
-              <span class="material-symbols-outlined text-[18px]">description</span>
-              <span>Resume</span>
-            </a>
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+              <a class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl glass-card text-white hover:text-sky-400 hover:border-blue-500/50 font-display font-medium text-sm transition-all magnetic-btn" href="#about">
+                <span class="material-symbols-outlined text-[18px] text-blue-400">person</span>
+                <span>About Me</span>
+              </a>
+              <a class="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/70 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white font-mono text-xs transition-colors magnetic-btn" href="mailto:koushikpaul6211@gmail.com?subject=Resume%20Request%20-%20Koushik%20Paul">
+                <span class="material-symbols-outlined text-[18px]">description</span>
+                <span>Resume</span>
+              </a>
+            </div>
           </div>
 
         </div>
 
         <!-- Right Column: Interactive 3D Card with User Image (member_10.jpg) -->
-        <div class="lg:col-span-5 flex items-center justify-center relative gsap-hero-portrait">
-          <div class="relative w-72 sm:w-80 md:w-96 aspect-square flex items-center justify-center tilt-card">
+        <div class="lg:col-span-5 flex items-center justify-center relative gsap-hero-portrait py-4 sm:py-0">
+          <div class="relative w-64 sm:w-80 md:w-96 aspect-square flex items-center justify-center tilt-card">
             
             <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/25 via-sky-500/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
             
             <div class="relative z-10 p-1.5 rounded-full bg-gradient-to-tr from-blue-600 via-sky-400 to-blue-500 shadow-2xl shadow-blue-500/25">
-              <div class="w-64 sm:w-72 md:w-80 h-64 sm:h-72 md:h-80 rounded-full overflow-hidden bg-slate-950 p-1 border-4 border-slate-950 relative z-10">
+              <div class="w-56 sm:w-72 md:w-80 h-56 sm:h-72 md:h-80 rounded-full overflow-hidden bg-slate-950 p-1 border-4 border-slate-950 relative z-10">
                 <img alt="Koushik Paul - Software Engineer" class="w-full h-full object-cover object-center rounded-full hover:scale-105 transition-transform duration-700 relative z-10" src="member_10.jpg"/>
               </div>
             </div>
 
-            <!-- Floating Tech Badges -->
-            <div class="absolute -top-3 -left-4 z-20 gsap-float-pill-1">
-              <div class="glass-card px-3.5 py-2 rounded-xl flex items-center gap-2 border border-blue-500/40 shadow-xl shadow-black/60">
-                <span class="text-base">🐘</span>
-                <span class="font-mono text-xs font-semibold text-blue-300">PHP 8+</span>
+            <!-- Floating Tech Badges (Responsive coordinates avoiding viewport bleed) -->
+            <div class="absolute -top-2 left-0 sm:-top-3 sm:-left-4 z-20 gsap-float-pill-1">
+              <div class="glass-card px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl flex items-center gap-1.5 sm:gap-2 border border-blue-500/40 shadow-xl shadow-black/60">
+                <span class="text-sm sm:text-base">🐘</span>
+                <span class="font-mono text-[11px] sm:text-xs font-semibold text-blue-300">PHP 8+</span>
               </div>
             </div>
 
-            <div class="absolute top-1/4 -right-6 z-20 gsap-float-pill-2">
-              <div class="glass-card px-3.5 py-2 rounded-xl flex items-center gap-2 border border-sky-500/40 shadow-xl shadow-black/60">
-                <span class="text-base">⚡</span>
-                <span class="font-mono text-xs font-semibold text-sky-300">Laravel</span>
+            <div class="absolute top-1/4 right-0 sm:-right-6 z-20 gsap-float-pill-2">
+              <div class="glass-card px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl flex items-center gap-1.5 sm:gap-2 border border-sky-500/40 shadow-xl shadow-black/60">
+                <span class="text-sm sm:text-base">⚡</span>
+                <span class="font-mono text-[11px] sm:text-xs font-semibold text-sky-300">Laravel</span>
               </div>
             </div>
 
-            <div class="absolute -bottom-4 left-6 z-20 gsap-float-pill-3">
-              <div class="glass-card px-3.5 py-2 rounded-xl flex items-center gap-2 border border-blue-500/40 shadow-xl shadow-black/60">
-                <span class="text-base">🚀</span>
-                <span class="font-mono text-xs font-semibold text-blue-300">JavaScript ES6+</span>
+            <div class="absolute -bottom-2 left-2 sm:-bottom-4 sm:left-6 z-20 gsap-float-pill-3">
+              <div class="glass-card px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl flex items-center gap-1.5 sm:gap-2 border border-blue-500/40 shadow-xl shadow-black/60">
+                <span class="text-sm sm:text-base">🚀</span>
+                <span class="font-mono text-[11px] sm:text-xs font-semibold text-blue-300">JS ES6+</span>
               </div>
             </div>
 
-            <div class="absolute bottom-16 -right-6 z-20 gsap-float-pill-4">
-              <div class="glass-card px-3.5 py-2 rounded-xl flex items-center gap-2 border border-sky-500/40 shadow-xl shadow-black/60">
-                <span class="text-base">🐬</span>
-                <span class="font-mono text-xs font-semibold text-sky-300">MySQL</span>
+            <div class="absolute bottom-12 right-0 sm:bottom-16 sm:-right-6 z-20 gsap-float-pill-4">
+              <div class="glass-card px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl flex items-center gap-1.5 sm:gap-2 border border-sky-500/40 shadow-xl shadow-black/60">
+                <span class="text-sm sm:text-base">🐬</span>
+                <span class="font-mono text-[11px] sm:text-xs font-semibold text-sky-300">MySQL</span>
               </div>
             </div>
 
@@ -646,15 +663,15 @@
               <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
               <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
             </div>
-            <div class="font-mono text-xs text-slate-400 flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[14px] text-blue-400">terminal</span>
-              <span>koushik@dhaka-node:~ (zsh)</span>
+            <div class="font-mono text-xs text-slate-400 flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
+              <span class="material-symbols-outlined text-[14px] text-blue-400 shrink-0">terminal</span>
+              <span class="truncate">koushik@dhaka-node:~ (zsh)</span>
             </div>
-            <div class="text-[10px] font-mono text-slate-400">Type <span class="text-blue-400">help</span></div>
+            <div class="text-[10px] font-mono text-slate-400 hidden xs:block">Type <span class="text-blue-400">help</span></div>
           </div>
 
           <!-- Terminal Screen Area -->
-          <div class="p-6 bg-slate-950/95 font-mono text-xs sm:text-sm text-slate-300 min-h-[300px] max-h-[420px] overflow-y-auto space-y-3" id="terminalOutput">
+          <div class="p-4 sm:p-6 bg-slate-950/95 font-mono text-xs sm:text-sm text-slate-300 min-h-[260px] sm:min-h-[300px] max-h-[420px] overflow-y-auto space-y-3 break-words" id="terminalOutput">
             <div class="text-slate-400">
               Welcome to Koushik Paul's Interactive CLI [GitHub Dark Pro Edition].<br/>
               Type <span class="text-blue-400 font-bold">'help'</span> for available commands or <span class="text-green-400 font-bold">'sudo hire'</span> to transmit a direct offer.
@@ -662,10 +679,10 @@
           </div>
 
           <!-- Command Input Form Bar -->
-          <form class="px-6 py-3 bg-slate-900 border-t border-slate-700 flex items-center gap-3" id="terminalForm">
-            <span class="text-blue-400 font-mono font-bold">$</span>
-            <input autocomplete="off" class="flex-1 bg-transparent text-white font-mono text-xs sm:text-sm focus:outline-none placeholder:text-slate-600" id="terminalInput" placeholder="Type a command (e.g. skills, projects, contact, theme vscode)..." type="text"/>
-            <button class="px-3 py-1 rounded bg-slate-800 hover:bg-blue-500 hover:text-slate-950 text-slate-300 font-mono text-xs transition-colors" type="submit">Execute</button>
+          <form class="px-4 sm:px-6 py-3 bg-slate-900 border-t border-slate-700 flex items-center gap-2 sm:gap-3" id="terminalForm">
+            <span class="text-blue-400 font-mono font-bold shrink-0">$</span>
+            <input autocomplete="off" class="flex-1 min-w-0 bg-transparent text-white font-mono text-xs sm:text-sm focus:outline-none placeholder:text-slate-600" id="terminalInput" placeholder="Type a command (e.g. skills, projects, contact, theme vscode)..." type="text"/>
+            <button class="px-3 py-1 rounded bg-slate-800 hover:bg-blue-500 hover:text-slate-950 text-slate-300 font-mono text-xs transition-colors shrink-0 cursor-pointer" type="submit">Execute</button>
           </form>
 
         </div>
@@ -1039,11 +1056,11 @@
                 </div>
 
                 <!-- Navigation Chevrons -->
-                <button aria-label="Previous Slide" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 flex items-center justify-center text-xs opacity-0 group-hover/slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg" onclick="event.stopPropagation(); event.preventDefault(); changeL2bSlide(-1);" type="button">
-                  <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                <button aria-label="Previous Slide" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/90 border border-slate-700 hover:border-cyan-400 text-slate-200 hover:text-cyan-400 flex items-center justify-center text-xs opacity-90 sm:opacity-0 sm:group-hover/slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg active:scale-95" onclick="event.stopPropagation(); event.preventDefault(); changeL2bSlide(-1);" type="button">
+                  <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                 </button>
-                <button aria-label="Next Slide" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 flex items-center justify-center text-xs opacity-0 group-hover/slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg" onclick="event.stopPropagation(); event.preventDefault(); changeL2bSlide(1);" type="button">
-                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                <button aria-label="Next Slide" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/90 border border-slate-700 hover:border-cyan-400 text-slate-200 hover:text-cyan-400 flex items-center justify-center text-xs opacity-90 sm:opacity-0 sm:group-hover/slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg active:scale-95" onclick="event.stopPropagation(); event.preventDefault(); changeL2bSlide(1);" type="button">
+                  <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                 </button>
 
                 <!-- Navigation Dots -->
@@ -1136,11 +1153,11 @@
                 </div>
 
                 <!-- Navigation Chevrons -->
-                <button aria-label="Previous Slide" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 border border-slate-700 hover:border-red-400 text-slate-300 hover:text-red-400 flex items-center justify-center text-xs opacity-0 group-hover/spacemc-slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg" onclick="event.stopPropagation(); event.preventDefault(); changeSpaceMcSlide(-1);" type="button">
-                  <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                <button aria-label="Previous Slide" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/90 border border-slate-700 hover:border-red-400 text-slate-200 hover:text-red-400 flex items-center justify-center text-xs opacity-90 sm:opacity-0 sm:group-hover/spacemc-slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg active:scale-95" onclick="event.stopPropagation(); event.preventDefault(); changeSpaceMcSlide(-1);" type="button">
+                  <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                 </button>
-                <button aria-label="Next Slide" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 border border-slate-700 hover:border-red-400 text-slate-300 hover:text-red-400 flex items-center justify-center text-xs opacity-0 group-hover/spacemc-slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg" onclick="event.stopPropagation(); event.preventDefault(); changeSpaceMcSlide(1);" type="button">
-                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                <button aria-label="Next Slide" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/90 border border-slate-700 hover:border-red-400 text-slate-200 hover:text-red-400 flex items-center justify-center text-xs opacity-90 sm:opacity-0 sm:group-hover/spacemc-slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg active:scale-95" onclick="event.stopPropagation(); event.preventDefault(); changeSpaceMcSlide(1);" type="button">
+                  <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                 </button>
 
                 <!-- Navigation Dots -->
@@ -1348,7 +1365,7 @@
                   </div>
                   <div>
                     <span class="block font-mono text-[10px] text-slate-400 uppercase tracking-wider">Email Address</span>
-                    <a class="font-mono text-xs text-white hover:text-blue-400 transition-colors" href="mailto:koushikpaul6211@gmail.com">
+                    <a class="font-mono text-xs text-white hover:text-blue-400 transition-colors break-all" href="mailto:koushikpaul6211@gmail.com">
                       koushikpaul6211@gmail.com
                     </a>
                   </div>
@@ -1516,7 +1533,7 @@
   <!-- ========================================================================= -->
   <!-- COMMAND PALETTE OVERLAY MODAL (Ctrl+K)                                    -->
   <!-- ========================================================================= -->
-  <div class="fixed inset-0 z-50 modal-backdrop hidden flex-col items-center justify-start pt-20 px-4" id="cmdPaletteOverlay">
+  <div class="fixed inset-0 z-50 modal-backdrop hidden flex-col items-center justify-start pt-6 sm:pt-20 px-3 sm:px-4" id="cmdPaletteOverlay">
     <div class="w-full max-w-2xl glass-card rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col">
       <div class="p-4 bg-slate-900 border-b border-slate-700 flex items-center gap-3">
         <span class="material-symbols-outlined text-blue-400">search</span>
@@ -1557,15 +1574,15 @@
   <!-- ========================================================================= -->
   <!-- PROJECT QUICK VIEW LIGHTBOX MODAL                                         -->
   <!-- ========================================================================= -->
-  <div class="fixed inset-0 z-50 modal-backdrop hidden flex-col items-center justify-center p-4" id="projectModal">
-    <div class="w-full max-w-3xl glass-card rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+  <div class="fixed inset-0 z-50 modal-backdrop hidden flex-col items-center justify-center p-2 sm:p-4" id="projectModal">
+    <div class="w-full max-w-3xl glass-card rounded-2xl border border-slate-700 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
       <div class="p-4 bg-slate-900 border-b border-slate-700 flex items-center justify-between">
         <h3 class="font-display font-bold text-white text-base" id="modalProjectTitle">Project Details</h3>
         <button class="text-slate-400 hover:text-white p-1 rounded-lg cursor-pointer" onclick="closeProjectModal()">
           <span class="material-symbols-outlined text-[20px]">close</span>
         </button>
       </div>
-      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-300" id="modalProjectBody">
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-300" id="modalProjectBody">
         <!-- Injected via JS -->
       </div>
     </div>
@@ -1631,7 +1648,7 @@
       });
 
       // Header & Hero Entrance
-      gsap.from('.gsap-header-reveal', { y: -40, opacity: 0, duration: 1, ease: 'power3.out' });
+      gsap.from('.gsap-header-reveal', { y: -40, opacity: 0, duration: 1, ease: 'power3.out', clearProps: 'transform' });
       gsap.from('.gsap-hero-item', { y: 35, opacity: 0, duration: 0.9, stagger: 0.15, ease: 'power3.out', delay: 0.2 });
       gsap.from('.gsap-hero-portrait', { scale: 0.8, opacity: 0, duration: 1.2, ease: 'back.out(1.4)', delay: 0.4 });
 
@@ -1877,27 +1894,29 @@
       });
     });
 
-    // 3D Perspective Multi-Axis Tilt Tracking
-    document.querySelectorAll('.tilt-card').forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        gsap.to(card, { rotateY: x * 0.06, rotateX: -y * 0.06, transformPerspective: 1000, duration: 0.25, ease: 'power1.out' });
+    // 3D Perspective Multi-Axis Tilt Tracking (Desktop Only)
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      document.querySelectorAll('.tilt-card').forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(card, { rotateY: x * 0.06, rotateX: -y * 0.06, transformPerspective: 1000, duration: 0.25, ease: 'power1.out' });
+        });
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5, ease: 'power2.out' });
+        });
       });
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5, ease: 'power2.out' });
-      });
-    });
 
-    // Magnetic Button Attractions
-    document.querySelectorAll('.magnetic-btn').forEach((btn) => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        gsap.to(btn, { x: (e.clientX - rect.left - rect.width / 2) * 0.3, y: (e.clientY - rect.top - rect.height / 2) * 0.3, duration: 0.3, ease: 'power2.out' });
+      // Magnetic Button Attractions
+      document.querySelectorAll('.magnetic-btn').forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          gsap.to(btn, { x: (e.clientX - rect.left - rect.width / 2) * 0.3, y: (e.clientY - rect.top - rect.height / 2) * 0.3, duration: 0.3, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => { gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' }); });
       });
-      btn.addEventListener('mouseleave', () => { gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' }); });
-    });
+    }
 
     // 5. Interactive Particle Canvas
     (function initParticleCanvas() {
@@ -1952,11 +1971,13 @@
       let particles = [];
       function initParticles() {
         particles = [];
-        const count = Math.min(Math.floor((width * height) / 16000), 75);
+        const isMobile = width < 768;
+        const count = isMobile ? Math.min(Math.floor((width * height) / 35000), 22) : Math.min(Math.floor((width * height) / 16000), 75);
         for (let i = 0; i < count; i++) particles.push(new Particle());
       }
 
       function connect() {
+        if (width < 768) return; // Skip complex line calculations on mobile to guarantee smooth 60fps
         for (let a = 0; a < particles.length; a++) {
           for (let b = a + 1; b < particles.length; b++) {
             let dx = particles[a].x - particles[b].x; let dy = particles[a].y - particles[b].y;
@@ -2311,6 +2332,36 @@
         spaceMcSliderGroup.addEventListener('mouseleave', startSpaceMcTimer);
       }
       startSpaceMcTimer();
+
+      // Mobile Touch Swipe Gesture Support for Project Sliders
+      function attachSliderSwipe(containerSelector, changeSlideFunc) {
+        const container = document.querySelector(containerSelector);
+        if (!container) return;
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        container.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+          touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+          const touchEndX = e.changedTouches[0].screenX;
+          const touchEndY = e.changedTouches[0].screenY;
+          const diffX = touchEndX - touchStartX;
+          const diffY = touchEndY - touchStartY;
+          if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX < 0) {
+              changeSlideFunc(1);
+            } else {
+              changeSlideFunc(-1);
+            }
+          }
+        }, { passive: true });
+      }
+
+      attachSliderSwipe('.group\\/slider', changeL2bSlide);
+      attachSliderSwipe('.group\\/spacemc-slider', changeSpaceMcSlide);
     });
 
     // 9. Command Palette Overlay (Ctrl+K) Logic
