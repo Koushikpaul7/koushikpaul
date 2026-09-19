@@ -1,53 +1,41 @@
 ---
-name: Terminal Emerald Portfolio
+name: Electric Blue & Slate (GitHub Dark Pro)
 colors:
-  surface: '#0f131d'
-  surface-dim: '#0f131d'
-  surface-bright: '#353944'
-  surface-container-lowest: '#0a0e18'
-  surface-container-low: '#171b26'
-  surface-container: '#1c1f2a'
-  surface-container-high: '#262a35'
-  surface-container-highest: '#313540'
-  on-surface: '#dfe2f1'
-  on-surface-variant: '#bbcabf'
-  inverse-surface: '#dfe2f1'
-  inverse-on-surface: '#2c303b'
-  outline: '#86948a'
-  outline-variant: '#3c4a42'
-  surface-tint: '#4edea3'
-  primary: '#4edea3'
-  on-primary: '#003824'
-  primary-container: '#10b981'
-  on-primary-container: '#00422b'
-  inverse-primary: '#006c49'
-  secondary: '#4cd7f6'
-  on-secondary: '#003640'
-  secondary-container: '#03b5d3'
-  on-secondary-container: '#00424e'
-  tertiary: '#45dfa4'
-  on-tertiary: '#003825'
-  tertiary-container: '#00b982'
-  on-tertiary-container: '#00422c'
-  error: '#ffb4ab'
-  on-error: '#690005'
-  error-container: '#93000a'
-  on-error-container: '#ffdad6'
-  primary-fixed: '#6ffbbe'
-  primary-fixed-dim: '#4edea3'
-  on-primary-fixed: '#002113'
-  on-primary-fixed-variant: '#005236'
-  secondary-fixed: '#acedff'
-  secondary-fixed-dim: '#4cd7f6'
-  on-secondary-fixed: '#001f26'
-  on-secondary-fixed-variant: '#004e5c'
-  tertiary-fixed: '#68fcbf'
-  tertiary-fixed-dim: '#45dfa4'
-  on-tertiary-fixed: '#002114'
-  on-tertiary-fixed-variant: '#005137'
-  background: '#0f131d'
-  on-background: '#dfe2f1'
-  surface-variant: '#313540'
+  surface: '#0d1117'
+  surface-dim: '#090d13'
+  surface-bright: '#161b22'
+  surface-container-lowest: '#04070b'
+  surface-container-low: '#0d1117'
+  surface-container: '#161b22'
+  surface-container-high: '#21262d'
+  surface-container-highest: '#30363d'
+  on-surface: '#f0f6fc'
+  on-surface-variant: '#8b949e'
+  inverse-surface: '#f0f6fc'
+  inverse-on-surface: '#0d1117'
+  outline: '#30363d'
+  outline-variant: '#21262d'
+  surface-tint: '#58a6ff'
+  primary: '#58a6ff'
+  on-primary: '#040d21'
+  primary-container: '#1f6feb'
+  on-primary-container: '#f0f6fc'
+  inverse-primary: '#388bfd'
+  secondary: '#38bdf8'
+  on-secondary: '#082f49'
+  secondary-container: '#0284c7'
+  on-secondary-container: '#f0f9ff'
+  tertiary: '#79c0ff'
+  on-tertiary: '#041022'
+  tertiary-container: '#1158c7'
+  on-tertiary-container: '#e6f0ff'
+  error: '#f85149'
+  on-error: '#490202'
+  error-container: '#da3633'
+  on-error-container: '#ffdcd7'
+  background: '#0d1117'
+  on-background: '#f0f6fc'
+  surface-variant: '#161b22'
 typography:
   display:
     fontFamily: Plus Jakarta Sans
@@ -137,60 +125,39 @@ spacing:
 
 ## Brand & Style
 
-This design system embodies a battle-tested, high-craft developer persona. It merges retro computing nostalgia (CLI interfaces, monospaced data readouts, status beacons) with contemporary ultra-refined SaaS design (frosted glass layers, subtle ambient emerald glows, and crisp geometric typographic hierarchy). 
+This design system embodies a disciplined, modern developer persona based on the **GitHub Dark Pro & Electric Slate** aesthetic. It unites developer ergonomics (CLI terminal, monospaced metrics, clean status indicators) with refined SaaS aesthetics (frosted glass layers, subtle ambient electric blue halos, and crisp geometric typographic hierarchy).
 
-The target audience encompasses engineering leaders, global recruiters, and technical peers seeking rock-solid engineering competency, obsessive attention to detail, and modern product sensibilities. The interface evokes quiet authority, deep technical focus, and precision.
+The interface conveys authority, focus, and engineering rigor without excessive multi-color visual noise.
 
 ## Colors
 
-The palette leverages an obsidian deep-slate canvas paired with high-energy radiant emeralds and technical cyan-teal undertones:
+The palette adheres to a disciplined **60-30-10 color balance**:
 
-- **Canvas & Surface Base:** Deepest Slate (`#0B0F19`) for the root canvas, transitioning to Slate 900 (`#0F172A`) and translucent Slate 900 (`rgba(15, 23, 42, 0.60)`) for card containers.
-- **Primary Accent:** Glowing Emerald (`#10B981`) drives primary interactive elements, active status indicators, and focus rings. 
-- **Secondary & Tertiary:** Cool Cyan (`#06B6D4`) and Mint Emerald (`#34D399`) serve as terminal output highlights, syntax tokens, and secondary tag accents.
-- **Borders & Dividers:** Subtle, low-noise slate strokes (`rgba(30, 41, 59, 0.80)`) maintain visual structure without competing with foreground copy.
-- **Typography Tones:** High-contrast White (`#F8FAFC`) for headings, Slate 300 (`#CBD5E1`) for body text, and Slate 500 (`#64748B`) for structural metadata.
+- **Canvas & Surface Base (60%):** Deepest Obsidian Canvas (`#0D1117`) transitioning to Slate Glass (`#161B22` / `rgba(22, 27, 34, 0.75)`).
+- **Typography & Structure (30%):** High-contrast White (`#F0F6FC`) for headings, Slate 300 (`#CBD5E1`) for body text, and Slate 700 (`#30363D`) for hairline structural strokes.
+- **Primary Signature Accent (10%):** Electric Sky Blue (`#58A6FF` / `#38BDF8`) powers CTAs, focus outlines, progress bars, and active states.
+- **Single Semantic Indicator:** Emerald Green (`#10B981`) is reserved exclusively for the live "Available for Hire" status beacon and "All Systems Live" indicator.
+- **Borders & Dividers:** Subtle slate strokes (`rgba(48, 54, 61, 0.80)`) preserve structure cleanly.
 
 ## Typography
 
-Typography establishes an intentional dialectic between technical precision and human-centric clarity:
-
-- **Display & Headlines:** Plus Jakarta Sans provides clean, contemporary geometry with tightened letter tracking and confident weights (600–800) for hero hooks and section anchors.
-- **Body & Editorial:** Inter delivers neutral, hyper-legible rendering across high pixel densities, calibrated with generous line heights to preserve reading comfort on dark backdrops.
-- **Terminal & Metadata:** JetBrains Mono is strictly enforced for status pills, shell commands, timestamp ribbons, and technical taxonomy tags.
-
-## Layout & Spacing
-
-The layout follows a modular 12-column grid system capped at a maximum width of `1280px` for desktop viewports, downshifting to a 4-column fluid structure on mobile devices (`< 768px`). 
-
-Vertical rhythm is governed strictly by an 8px scale. Spacing tokens ensure visual breathing room around dense terminal components while preserving tight internal groupings between command prompts, badges, and contextual metadata.
-
-## Elevation & Depth
-
-Visual depth is achieved through layered translucency and subtle colored luminescence rather than heavy black drop shadows:
-
-- **Canvas:** Raw `#0B0F19` void with optional radial emerald spotlight gradients (`radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08), transparent 70%)`).
-- **Glassmorphism Panels:** `background: rgba(15, 23, 42, 0.60)`, conditioned with `backdrop-filter: blur(12px)` and a sharp hair-line perimeter `1px solid rgba(30, 41, 59, 0.80)`.
-- **Active Glows:** Interactive and featured modules receive an ambient emerald halo: `box-shadow: 0 0 30px -10px rgba(16, 185, 129, 0.25)`.
-
-## Shapes
-
-The interface adopts a balanced `roundedness: 2` scale. Standard cards and containers use an outer corner radius of `0.5rem` (8px), scaling to `1rem` (16px) for large hero feature panels (`rounded-lg`). Small controls, technical badges, and terminal windows use `0.375rem` to `0.5rem` to retain an architectural, modern software tool finish without feeling bulbous.
+- **Display & Headlines:** Plus Jakarta Sans with bold weights (700–800) and tightened tracking (`-0.02em`) rendered in radiant white and soft sky gradient accents.
+- **Body & Explanatory:** Inter with balanced line heights (1.6) in neutral slate ensuring fatigue-free reading.
+- **Terminal & Monospace Data:** JetBrains Mono for shell commands, timestamps, version numbers, metrics, and pill tags.
 
 ## Components
 
 ### Buttons
-- **Primary:** Solid `#10B981` fill with `#0B0F19` bold typography. Hover states introduce an upward 1px transform and an outer emerald wash (`box-shadow: 0 0 20px rgba(16, 185, 129, 0.4)`).
-- **Secondary / Ghost:** Translucent Slate 800 background (`rgba(30, 41, 59, 0.5)`) with a `1px solid rgba(16, 185, 129, 0.3)` boundary and JetBrains Mono text.
+- **Primary:** Gradient `#2563EB` to `#0EA5E9` fill (`from-blue-600 to-sky-500`) with `#020617` bold typography and electric blue glow on hover.
+- **Secondary / Ghost:** Glassmorphic Slate 900 background with a `1px solid rgba(88, 166, 255, 0.3)` boundary.
 
 ### Interactive Terminal Card
-- **Frame:** Window header with three minimalist dot controls (`#EF4444`, `#F59E0B`, `#10B981` at 8px diameter), followed by monospaced user path title (`koushik@dhaka-node:~`).
-- **Body:** JetBrains Mono content with green `$` prompt indicators, cyan execution commands, and slate response output.
+- **Window Frame:** Standard window dots (`#EF4444`, `#F59E0B`, `#10B981`), with clean slate header and terminal prompt.
+- **Prompt:** Crisp `$` indicator with electric blue command highlights.
 
-### Status Pills & Technical Chips
-- **Availability Pill:** Emerald dot with an active CSS radar pulse animation (`ping`), accompanied by uppercase text reading `AVAILABLE FOR GLOBAL ROLES`.
-- **Skill Badges:** JetBrains Mono pill badges featuring dark slate surfaces, subtle 1px slate-800 borders, and muted green/cyan text.
+### Skills & Progress Indicators
+- **Filter Pills:** Active filter button in solid electric blue (`bg-blue-500 text-slate-950 font-bold`), inactive pills in dark slate glass.
+- **Progress Trackers:** Cohesive electric blue-to-sky gradient (`from-blue-600 to-sky-400`).
 
-### Timeline Cards
-- **Structure:** Vertical connecting spine using a faint emerald gradient (`from-emerald-500/40 to-transparent`). 
-- **Milestone Nodes:** Glassmorphic content cards offset with monospaced company/date anchors and clear impact bulleting.
+### Status Beacon
+- **Live Status:** Emerald ping ring (`#10B981` / `bg-green-400 animate-ping`) indicating active worldwide availability.
