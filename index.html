@@ -798,12 +798,60 @@
                 <span class="material-symbols-outlined text-slate-500 text-[14px]">lock</span>
               </div>
 
-              <div class="relative h-52 w-full img-zoom-container bg-slate-950">
-                <img alt="Lahore to Bukhara Travel Journal Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_30P8ptqrJiwQ1_wp_ibWE7UG2FsbA0RIlSxk8XwwHRReFfIeNXU4TnB4Ozb35bqzNr6FjleuHgt8i0kHuGv9ASw9gW8gmPLCIY1XeQ-DBubpIs-R4DTAchURSdOvfaa2ph9PLR48nOfUDeF8NzB6N6qjShFKzgDrumSGO6NglCJNMmkcjZMcwfzKk9T1LREF_3ft7kZzkrY0GPGpOdzByXN1tKEDTBGDNse9D-AzAHmNXG9bBtC-sA"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
-                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 border border-cyan-500/40 text-cyan-400 font-mono text-[10px] uppercase tracking-wider backdrop-blur-md">
-                  Interactive Journal
-                </span>
+              <!-- Interactive Image Slider with Direct Live Site Redirection -->
+              <div class="relative h-52 w-full overflow-hidden bg-white group/slider select-none">
+                <!-- Clickable link redirecting directly to lahoretobukhara.com -->
+                <a href="https://www.lahoretobukhara.com/" target="_blank" rel="noopener noreferrer" class="block w-full h-full relative cursor-pointer" id="l2bSliderLink" title="Click to visit https://www.lahoretobukhara.com/ in a new tab">
+                  
+                  <!-- Slides (Crops from live site) -->
+                  <div class="l2b-slide absolute inset-0 transition-opacity duration-500 flex items-center justify-center opacity-100 bg-white" data-index="0">
+                    <img alt="Lahore to Bukhara - Hero Banner" class="w-full h-full object-contain object-center p-1" src="l2b_slide_hero.png"/>
+                  </div>
+                  <div class="l2b-slide absolute inset-0 transition-opacity duration-500 flex items-center justify-center opacity-0 pointer-events-none bg-white" data-index="1">
+                    <img alt="Lahore to Bukhara - Interactive Route Map &amp; Stats" class="w-full h-full object-contain object-center p-1" src="l2b_slide_map.png"/>
+                  </div>
+                  <div class="l2b-slide absolute inset-0 transition-opacity duration-500 flex items-center justify-center opacity-0 pointer-events-none bg-white" data-index="2">
+                    <img alt="Lahore to Bukhara - Memorable Event Stories" class="w-full h-full object-contain object-center p-1" src="l2b_slide_events.png"/>
+                  </div>
+                  <div class="l2b-slide absolute inset-0 transition-opacity duration-500 flex items-center justify-center opacity-0 pointer-events-none bg-white" data-index="3">
+                    <img alt="Lahore to Bukhara - Sher-o-Shayari Cultural Gallery" class="w-full h-full object-contain object-center p-1" src="l2b_slide_poetry.png"/>
+                  </div>
+
+                  <!-- Hover overlay indicating click-to-redirect -->
+                  <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-cyan-300 font-mono text-xs backdrop-blur-[2px] pointer-events-none z-10">
+                    <span class="px-3.5 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/50 shadow-2xl flex items-center gap-2 font-bold tracking-wide text-cyan-400">
+                      <span>Visit lahoretobukhara.com</span>
+                      <span class="material-symbols-outlined text-[15px]">arrow_outward</span>
+                    </span>
+                  </div>
+                </a>
+
+                <!-- Top Badge: Slide Section Label -->
+                <div class="absolute top-2.5 left-3 px-2.5 py-0.5 rounded-full bg-slate-950/85 border border-cyan-500/40 text-cyan-400 font-mono text-[10px] uppercase tracking-wider backdrop-blur-md pointer-events-none z-20 shadow-md" id="l2bSlideLabel">
+                  Hero Showcase
+                </div>
+
+                <!-- Top Right: Live site status -->
+                <div class="absolute top-2.5 right-3 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-950/85 border border-emerald-500/40 text-emerald-400 font-mono text-[10px] backdrop-blur-md pointer-events-none z-20 shadow-md">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Live</span>
+                </div>
+
+                <!-- Navigation Chevrons -->
+                <button aria-label="Previous Slide" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 flex items-center justify-center text-xs opacity-0 group-hover/slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg" onclick="event.stopPropagation(); event.preventDefault(); changeL2bSlide(-1);" type="button">
+                  <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                </button>
+                <button aria-label="Next Slide" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 flex items-center justify-center text-xs opacity-0 group-hover/slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg" onclick="event.stopPropagation(); event.preventDefault(); changeL2bSlide(1);" type="button">
+                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+
+                <!-- Navigation Dots -->
+                <div class="absolute bottom-2 inset-x-0 flex items-center justify-center gap-1.5 z-20" id="l2bDotsContainer">
+                  <button aria-label="Slide 1" class="w-4 h-1.5 rounded-full bg-cyan-400 transition-all cursor-pointer" onclick="event.stopPropagation(); event.preventDefault(); setL2bSlide(0);" type="button"></button>
+                  <button aria-label="Slide 2" class="w-2 h-1.5 rounded-full bg-slate-400/60 hover:bg-cyan-400 transition-all cursor-pointer" onclick="event.stopPropagation(); event.preventDefault(); setL2bSlide(1);" type="button"></button>
+                  <button aria-label="Slide 3" class="w-2 h-1.5 rounded-full bg-slate-400/60 hover:bg-cyan-400 transition-all cursor-pointer" onclick="event.stopPropagation(); event.preventDefault(); setL2bSlide(2);" type="button"></button>
+                  <button aria-label="Slide 4" class="w-2 h-1.5 rounded-full bg-slate-400/60 hover:bg-cyan-400 transition-all cursor-pointer" onclick="event.stopPropagation(); event.preventDefault(); setL2bSlide(3);" type="button"></button>
+                </div>
               </div>
 
               <div class="p-6">
@@ -815,6 +863,7 @@
                   <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">PHP</span>
                   <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">MySQL</span>
                   <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">Bootstrap 5</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-cyan-400">Interactive Map</span>
                 </div>
               </div>
             </div>
@@ -824,8 +873,8 @@
                 <span class="material-symbols-outlined text-[16px]">visibility</span>
                 <span>Quick View</span>
               </button>
-              <a class="inline-flex items-center gap-1 font-mono text-xs text-cyan-400 hover:underline" href="#contact">
-                <span>View Story</span>
+              <a class="inline-flex items-center gap-1 font-mono text-xs text-cyan-400 hover:text-cyan-300 hover:underline transition-colors" href="https://www.lahoretobukhara.com/" target="_blank" rel="noopener noreferrer">
+                <span>Visit Live Site</span>
                 <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
               </a>
             </div>
@@ -833,8 +882,8 @@
 
 
 
-          <!-- Project 5: Stroke Prediction ML Healthcare System -->
-          <div class="glass-card spotlight-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:-translate-y-2 transition-all duration-300 shadow-2xl border border-slate-700 hover:border-blue-400/50 gsap-reveal tilt-card">
+          <!-- Project 3: Space Marketing Communication (Laravel CMS & Brand Platform) -->
+          <div class="glass-card spotlight-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:-translate-y-2 transition-all duration-300 shadow-2xl border border-slate-700 hover:border-red-500/50 gsap-reveal tilt-card">
             <div>
               <div class="px-4 py-3 bg-slate-900 border-b border-slate-700 flex items-center justify-between font-mono text-[11px]">
                 <div class="flex items-center gap-1.5">
@@ -842,37 +891,87 @@
                   <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
                   <span class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block"></span>
                 </div>
-                <span class="text-slate-400 truncate max-w-[170px]">stroke-ml.health.node</span>
+                <span class="text-slate-400 truncate max-w-[170px]">spacemc.com</span>
                 <span class="material-symbols-outlined text-slate-500 text-[14px]">lock</span>
               </div>
 
-              <div class="relative h-52 w-full img-zoom-container bg-slate-950">
-                <img alt="Stroke Prediction ML System Screenshot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSiMh6SrJcmldvAAzECN7LG6ikYk2WAGmKa8fn1XZkxlxoLJLjEcJ28TjDdUSt3tkrqFOQ5rJadhzmQ2JgR2SiGvSDhyzdv8M7HIc8hWmN-MSGccuPJbE0ucBUMT0rrOS5DzFrE-_0aDoOWiksI0eLhAAX01U1--4MbsoES2loFjP2U30xOCtL50W6qIFvcEEcPfsD1cc7jStzn-873vXz-7u12JLWqYDN-aRFVYWT5g85EbTUjKG59g"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
-                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 border border-blue-500/40 text-blue-300 font-mono text-[10px] uppercase tracking-wider backdrop-blur-md">
-                  HealthTech ML
-                </span>
+              <!-- Interactive Image Slider with Direct Live Site Redirection -->
+              <div class="relative h-52 w-full overflow-hidden bg-slate-900 group/spacemc-slider select-none">
+                <!-- Clickable link redirecting directly to spacemc.com -->
+                <a href="https://spacemc.com/" target="_blank" rel="noopener noreferrer" class="block w-full h-full relative cursor-pointer" id="spacemcSliderLink" title="Click to visit https://spacemc.com/ in a new tab">
+                  
+                  <!-- Slides (Website Preview & Laravel Admin Panel) -->
+                  <div class="spacemc-slide absolute inset-0 transition-opacity duration-500 flex items-center justify-center opacity-100 bg-[#e5e7eb]" data-index="0">
+                    <img alt="Space Marketing Communication - Live Website Preview" class="w-full h-full object-contain object-center p-1" src="spacemc_slide_web.png"/>
+                  </div>
+                  <div class="spacemc-slide absolute inset-0 transition-opacity duration-500 flex items-center justify-center opacity-0 pointer-events-none bg-white" data-index="1">
+                    <img alt="Space Marketing Communication - Admin Dashboard" class="w-full h-full object-contain object-center p-1" src="spacemc_slide_dashboard.png"/>
+                  </div>
+                  <div class="spacemc-slide absolute inset-0 transition-opacity duration-500 flex items-center justify-center opacity-0 pointer-events-none bg-white" data-index="2">
+                    <img alt="Space Marketing Communication - CMS Content Editor" class="w-full h-full object-contain object-center p-1" src="spacemc_slide_cms.png"/>
+                  </div>
+                  <div class="spacemc-slide absolute inset-0 transition-opacity duration-500 flex items-center justify-center opacity-0 pointer-events-none bg-white" data-index="3">
+                    <img alt="Space Marketing Communication - Banner Management Data Grid" class="w-full h-full object-contain object-center p-1" src="spacemc_slide_banners.png"/>
+                  </div>
+
+                  <!-- Hover overlay indicating click-to-redirect -->
+                  <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover/spacemc-slider:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-red-300 font-mono text-xs backdrop-blur-[2px] pointer-events-none z-10">
+                    <span class="px-3.5 py-1.5 rounded-xl bg-slate-900/90 border border-red-500/50 shadow-2xl flex items-center gap-2 font-bold tracking-wide text-red-400">
+                      <span>Visit spacemc.com</span>
+                      <span class="material-symbols-outlined text-[15px]">arrow_outward</span>
+                    </span>
+                  </div>
+                </a>
+
+                <!-- Top Badge: Slide Section Label -->
+                <div class="absolute top-2.5 left-3 px-2.5 py-0.5 rounded-full bg-slate-950/85 border border-red-500/40 text-red-400 font-mono text-[10px] uppercase tracking-wider backdrop-blur-md pointer-events-none z-20 shadow-md" id="spacemcSlideLabel">
+                  Website Showcase
+                </div>
+
+                <!-- Top Right: Live site status -->
+                <div class="absolute top-2.5 right-3 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-950/85 border border-emerald-500/40 text-emerald-400 font-mono text-[10px] backdrop-blur-md pointer-events-none z-20 shadow-md">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Live</span>
+                </div>
+
+                <!-- Navigation Chevrons -->
+                <button aria-label="Previous Slide" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 border border-slate-700 hover:border-red-400 text-slate-300 hover:text-red-400 flex items-center justify-center text-xs opacity-0 group-hover/spacemc-slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg" onclick="event.stopPropagation(); event.preventDefault(); changeSpaceMcSlide(-1);" type="button">
+                  <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                </button>
+                <button aria-label="Next Slide" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-900/80 border border-slate-700 hover:border-red-400 text-slate-300 hover:text-red-400 flex items-center justify-center text-xs opacity-0 group-hover/spacemc-slider:opacity-100 transition-all z-20 cursor-pointer shadow-lg" onclick="event.stopPropagation(); event.preventDefault(); changeSpaceMcSlide(1);" type="button">
+                  <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </button>
+
+                <!-- Navigation Dots -->
+                <div class="absolute bottom-2 inset-x-0 flex items-center justify-center gap-1.5 z-20" id="spacemcDotsContainer">
+                  <button aria-label="Slide 1" class="w-4 h-1.5 rounded-full bg-red-400 transition-all cursor-pointer" onclick="event.stopPropagation(); event.preventDefault(); setSpaceMcSlide(0);" type="button"></button>
+                  <button aria-label="Slide 2" class="w-2 h-1.5 rounded-full bg-slate-400/60 hover:bg-red-400 transition-all cursor-pointer" onclick="event.stopPropagation(); event.preventDefault(); setSpaceMcSlide(1);" type="button"></button>
+                  <button aria-label="Slide 3" class="w-2 h-1.5 rounded-full bg-slate-400/60 hover:bg-red-400 transition-all cursor-pointer" onclick="event.stopPropagation(); event.preventDefault(); setSpaceMcSlide(2);" type="button"></button>
+                  <button aria-label="Slide 4" class="w-2 h-1.5 rounded-full bg-slate-400/60 hover:bg-red-400 transition-all cursor-pointer" onclick="event.stopPropagation(); event.preventDefault(); setSpaceMcSlide(3);" type="button"></button>
+                </div>
               </div>
 
               <div class="p-6">
-                <h3 class="font-display font-bold text-lg text-white group-hover:text-blue-400 transition-colors">
-                  Stroke Prediction ML System
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-red-400 transition-colors">
+                  Space Marketing Communication
                 </h3>
-                <span class="block font-mono text-xs text-blue-300 mt-1 mb-3">Predictive Clinical Dashboard</span>
+                <span class="block font-mono text-xs text-red-400 mt-1 mb-3">Enterprise Laravel CMS &amp; Brand Platform</span>
                 <div class="flex flex-wrap gap-1.5 mb-4 font-mono text-[11px]">
-                  <span class="px-2 py-0.5 rounded bg-blue-950 border border-blue-500/40 text-blue-300">Machine Learning</span>
-                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">PHP Web Bridge</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">Laravel</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">PHP / MySQL</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">Custom CMS</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-red-400">Admin Panel</span>
                 </div>
               </div>
             </div>
 
             <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-slate-800 pt-4">
-              <button class="inline-flex items-center gap-1.5 font-mono text-xs text-slate-400 hover:text-blue-400 transition-colors cursor-pointer" onclick="openProjectModal(3)">
+              <button class="inline-flex items-center gap-1.5 font-mono text-xs text-slate-400 hover:text-red-400 transition-colors cursor-pointer" onclick="openProjectModal(3)">
                 <span class="material-symbols-outlined text-[16px]">visibility</span>
                 <span>Quick View</span>
               </button>
-              <a class="inline-flex items-center gap-1 font-mono text-xs text-blue-400 hover:underline" href="#contact">
-                <span>View System</span>
+              <a class="inline-flex items-center gap-1 font-mono text-xs text-red-400 hover:text-red-300 hover:underline transition-colors" href="https://spacemc.com/" target="_blank" rel="noopener noreferrer">
+                <span>Visit Live Site</span>
                 <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
               </a>
             </div>
@@ -1710,7 +1809,7 @@
               appendTerminalLine(`Core Stack: PHP 8+, Laravel (94%), MySQL (90%), JS ES6+ (88%), jQuery/AJAX & Tailwind CSS.`, 'text-green-300');
               break;
             case 'projects':
-              appendTerminalLine(`1. Amitabh Reza Chowdhury Portfolio\n2. Lahore to Bukhara Travel Journal\n3. Stroke Prediction ML Healthcare System`, 'text-blue-300');
+              appendTerminalLine(`1. Amitabh Reza Chowdhury Portfolio\n2. Lahore to Bukhara Travel Journal\n3. Space Marketing Communication (Laravel CMS)`, 'text-blue-300');
               break;
             case 'experience':
               appendTerminalLine(`• Software Engineer @ eMythMakers.com (09/2024 - Present)\n• Junior Software Engineer @ eMythMakers.com (07/2023 - 08/2024)\n• Recipient of Rising Star of the Year Award.`, 'text-purple-300');
@@ -1786,26 +1885,57 @@
       2: {
         title: 'Lahore to Bukhara Travel Journal',
         body: `<div class="space-y-4">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_30P8ptqrJiwQ1_wp_ibWE7UG2FsbA0RIlSxk8XwwHRReFfIeNXU4TnB4Ozb35bqzNr6FjleuHgt8i0kHuGv9ASw9gW8gmPLCIY1XeQ-DBubpIs-R4DTAchURSdOvfaa2ph9PLR48nOfUDeF8NzB6N6qjShFKzgDrumSGO6NglCJNMmkcjZMcwfzKk9T1LREF_3ft7kZzkrY0GPGpOdzByXN1tKEDTBGDNse9D-AzAHmNXG9bBtC-sA" class="w-full h-48 object-cover rounded-xl border border-slate-700"/>
-          <p>Interactive multimedia journal chronicling cultural expedition milestones across Central and South Asia.</p>
-          <h4 class="font-bold text-white font-mono text-xs uppercase">Key Highlights:</h4>
-          <ul class="list-disc pl-5 space-y-1 text-slate-300">
-            <li>Interactive map navigation linking expedition chapters with photo galleries.</li>
-            <li>Responsive Bootstrap 5 layout integrated with secure PHP query backends.</li>
-            <li>Cross-browser testing & fast asset delivery pipeline.</li>
+          <div class="relative bg-white rounded-xl border border-slate-700 overflow-hidden flex items-center justify-center p-2">
+            <img src="l2b_slide_hero.png" alt="Lahore to Bukhara - Cultural Travel Journal Platform" class="w-full h-48 object-contain object-center"/>
+          </div>
+          <p>Interactive multimedia travel journal chronicling the extraordinary 75-day cultural expedition across Uzbekistan, Tajikistan, Samarkand, and Bukhara.</p>
+          <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-700/80 flex items-center justify-between gap-3">
+            <div class="text-xs">
+              <span class="text-slate-400 block font-mono">Live Web Application:</span>
+              <a href="https://www.lahoretobukhara.com/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 font-mono font-semibold hover:underline flex items-center gap-1">
+                <span>https://www.lahoretobukhara.com/</span>
+              </a>
+            </div>
+            <a href="https://www.lahoretobukhara.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs transition-colors shrink-0 shadow-lg shadow-cyan-500/20">
+              <span>Visit Site</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+            </a>
+          </div>
+          <h4 class="font-bold text-white font-mono text-xs uppercase">Key Architectural Highlights:</h4>
+          <ul class="list-disc pl-5 space-y-1 text-slate-300 text-xs">
+            <li>Interactive route map connecting historic destinations (Lahore &rarr; Tashkent &rarr; Bukhara &rarr; Samarkand).</li>
+            <li>Multi-language support architecture (English, Bangla, Urdu) with dynamic content routing.</li>
+            <li>Curated Sher-o-Shayari literature portal and multimedia video travelogues.</li>
+            <li>Developed by Koushik Paul at eMythMakers.com with PHP, MySQL, and responsive Bootstrap 5.</li>
           </ul>
         </div>`
       },
       3: {
-        title: 'Stroke Prediction Machine Learning System',
+        title: 'Space Marketing Communication — Laravel CMS Platform',
         body: `<div class="space-y-4">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSiMh6SrJcmldvAAzECN7LG6ikYk2WAGmKa8fn1XZkxlxoLJLjEcJ28TjDdUSt3tkrqFOQ5rJadhzmQ2JgR2SiGvSDhyzdv8M7HIc8hWmN-MSGccuPJbE0ucBUMT0rrOS5DzFrE-_0aDoOWiksI0eLhAAX01U1--4MbsoES2loFjP2U30xOCtL50W6qIFvcEEcPfsD1cc7jStzn-873vXz-7u12JLWqYDN-aRFVYWT5g85EbTUjKG59g" class="w-full h-48 object-cover rounded-xl border border-slate-700"/>
-          <p>Predictive clinical assessment application calculating stroke vulnerability from physiological criteria.</p>
-          <h4 class="font-bold text-white font-mono text-xs uppercase">Key Highlights:</h4>
-          <ul class="list-disc pl-5 space-y-1 text-slate-300">
-            <li>Machine Learning model integration bridge for real-time risk assessment.</li>
-            <li>Patient parameter intake form with instant diagnostic readouts.</li>
-            <li>Structured MySQL database for historical query analysis.</li>
+          <div class="relative bg-slate-900 rounded-xl border border-slate-700 overflow-hidden flex items-center justify-center p-2">
+            <img src="spacemc_slide_web.png" alt="Space Marketing Communication - Web Platform" class="w-full h-48 object-contain object-center rounded-lg"/>
+          </div>
+          <p>Full-scale corporate website &amp; custom administrative CMS engine engineered for SPACE marketing communication (established 2003), powering multi-channel brand communications across advertising, interior design, audiovisuals, printing, and product packaging.</p>
+          <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-700/80 flex items-center justify-between gap-3">
+            <div class="text-xs">
+              <span class="text-slate-400 block font-mono">Live Web Application:</span>
+              <a href="https://spacemc.com/" target="_blank" rel="noopener noreferrer" class="text-red-400 font-mono font-semibold hover:underline flex items-center gap-1">
+                <span>https://spacemc.com/</span>
+              </a>
+            </div>
+            <a href="https://spacemc.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-mono font-bold text-xs transition-colors shrink-0 shadow-lg shadow-red-500/25">
+              <span>Visit Site</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+            </a>
+          </div>
+          <h4 class="font-bold text-white font-mono text-xs uppercase">Key Architectural Highlights:</h4>
+          <ul class="list-disc pl-5 space-y-1 text-slate-300 text-xs">
+            <li>Custom Laravel Administrative Dashboard with dedicated content control panels.</li>
+            <li>WYSIWYG CKEditor integration for publishing About stories, Services, and Mission statements.</li>
+            <li>CRUD data grid engine for managing multi-page hero banners with instant preview capabilities.</li>
+            <li>Categorized portfolio and video reel management systems with high-performance asset pipelines.</li>
+            <li>Engineered with PHP 8+, Laravel, MySQL, and responsive front-end frameworks at eMythMakers.com.</li>
           </ul>
         </div>`
       }
@@ -1828,6 +1958,159 @@
         modal.classList.add('hidden');
       }
     }
+
+    // Lahore to Bukhara Interactive Card Slider Logic
+    let currentL2bIndex = 0;
+    const l2bSlideLabels = [
+      'Hero Showcase',
+      'Interactive Route Map',
+      'Event Video Stories',
+      'Sher-o-Shayari Gallery'
+    ];
+    let l2bAutoTimer = null;
+
+    function updateL2bSlide(index) {
+      const slides = document.querySelectorAll('.l2b-slide');
+      const dots = document.querySelectorAll('#l2bDotsContainer button');
+      const label = document.getElementById('l2bSlideLabel');
+      if (!slides || !slides.length) return;
+      
+      currentL2bIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        if (i === currentL2bIndex) {
+          slide.classList.remove('opacity-0', 'pointer-events-none');
+          slide.classList.add('opacity-100');
+        } else {
+          slide.classList.remove('opacity-100');
+          slide.classList.add('opacity-0', 'pointer-events-none');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === currentL2bIndex) {
+          dot.className = 'w-4 h-1.5 rounded-full bg-cyan-400 transition-all cursor-pointer';
+        } else {
+          dot.className = 'w-2 h-1.5 rounded-full bg-slate-400/60 hover:bg-cyan-400 transition-all cursor-pointer';
+        }
+      });
+
+      if (label) {
+        label.textContent = l2bSlideLabels[currentL2bIndex] || 'Interactive Showcase';
+      }
+    }
+
+    function changeL2bSlide(direction) {
+      updateL2bSlide(currentL2bIndex + direction);
+      resetL2bTimer();
+    }
+
+    function setL2bSlide(index) {
+      updateL2bSlide(index);
+      resetL2bTimer();
+    }
+
+    function startL2bTimer() {
+      stopL2bTimer();
+      l2bAutoTimer = setInterval(() => {
+        updateL2bSlide(currentL2bIndex + 1);
+      }, 4500);
+    }
+
+    function stopL2bTimer() {
+      if (l2bAutoTimer) {
+        clearInterval(l2bAutoTimer);
+        l2bAutoTimer = null;
+      }
+    }
+
+    function resetL2bTimer() {
+      startL2bTimer();
+    }
+
+    // Space Marketing Communication Interactive Card Slider Logic
+    let currentSpaceMcIndex = 0;
+    const spaceMcSlideLabels = [
+      'Website Showcase',
+      'Admin Dashboard',
+      'CMS Content Editor',
+      'Banner Management'
+    ];
+    let spaceMcAutoTimer = null;
+
+    function updateSpaceMcSlide(index) {
+      const slides = document.querySelectorAll('.spacemc-slide');
+      const dots = document.querySelectorAll('#spacemcDotsContainer button');
+      const label = document.getElementById('spacemcSlideLabel');
+      if (!slides || !slides.length) return;
+      
+      currentSpaceMcIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        if (i === currentSpaceMcIndex) {
+          slide.classList.remove('opacity-0', 'pointer-events-none');
+          slide.classList.add('opacity-100');
+        } else {
+          slide.classList.remove('opacity-100');
+          slide.classList.add('opacity-0', 'pointer-events-none');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === currentSpaceMcIndex) {
+          dot.className = 'w-4 h-1.5 rounded-full bg-red-400 transition-all cursor-pointer';
+        } else {
+          dot.className = 'w-2 h-1.5 rounded-full bg-slate-400/60 hover:bg-red-400 transition-all cursor-pointer';
+        }
+      });
+
+      if (label) {
+        label.textContent = spaceMcSlideLabels[currentSpaceMcIndex] || 'Website Showcase';
+      }
+    }
+
+    function changeSpaceMcSlide(direction) {
+      updateSpaceMcSlide(currentSpaceMcIndex + direction);
+      resetSpaceMcTimer();
+    }
+
+    function setSpaceMcSlide(index) {
+      updateSpaceMcSlide(index);
+      resetSpaceMcTimer();
+    }
+
+    function startSpaceMcTimer() {
+      stopSpaceMcTimer();
+      spaceMcAutoTimer = setInterval(() => {
+        updateSpaceMcSlide(currentSpaceMcIndex + 1);
+      }, 4800);
+    }
+
+    function stopSpaceMcTimer() {
+      if (spaceMcAutoTimer) {
+        clearInterval(spaceMcAutoTimer);
+        spaceMcAutoTimer = null;
+      }
+    }
+
+    function resetSpaceMcTimer() {
+      startSpaceMcTimer();
+    }
+
+    // Attach hover listeners to pause auto-sliding
+    document.addEventListener('DOMContentLoaded', () => {
+      const l2bSliderGroup = document.querySelector('.group\\/slider');
+      if (l2bSliderGroup) {
+        l2bSliderGroup.addEventListener('mouseenter', stopL2bTimer);
+        l2bSliderGroup.addEventListener('mouseleave', startL2bTimer);
+      }
+      startL2bTimer();
+
+      const spaceMcSliderGroup = document.querySelector('.group\\/spacemc-slider');
+      if (spaceMcSliderGroup) {
+        spaceMcSliderGroup.addEventListener('mouseenter', stopSpaceMcTimer);
+        spaceMcSliderGroup.addEventListener('mouseleave', startSpaceMcTimer);
+      }
+      startSpaceMcTimer();
+    });
 
     // 9. Command Palette Overlay (Ctrl+K) Logic
     const cmdOverlay = document.getElementById('cmdPaletteOverlay');
