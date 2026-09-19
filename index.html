@@ -194,6 +194,49 @@
       background: rgba(13, 17, 23, 0.88);
       backdrop-filter: blur(14px);
     }
+
+    /* Interactive Mobile Animated Hamburger Button */
+    .menu-open .hamburger-line-1 {
+      transform: translateY(8px) rotate(45deg);
+      background-color: var(--primary) !important;
+    }
+    .menu-open .hamburger-line-2 {
+      opacity: 0;
+      transform: translateX(-12px);
+    }
+    .menu-open .hamburger-line-3 {
+      transform: translateY(-8px) rotate(-45deg);
+      background-color: var(--primary) !important;
+    }
+    .menu-open#mobileMenuBtn {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 16px var(--primary-glow) !important;
+    }
+
+    /* Mobile Drawer Smooth Slide & Blur Transitions */
+    #mobileDrawer {
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.35s;
+    }
+    #mobileDrawer.drawer-closed {
+      opacity: 0;
+      transform: translateY(-14px) scale(0.98);
+      pointer-events: none;
+      visibility: hidden;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: 0;
+      border-color: transparent;
+    }
+    #mobileDrawer.drawer-open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      visibility: visible;
+      max-height: 90vh;
+    }
   </style>
 </head>
 <body class="selection:bg-blue-500 selection:text-slate-950 font-sans relative antialiased min-h-screen">
@@ -261,11 +304,16 @@
         </a>
       </nav>
 
-      <!-- Actions: Command Palette, Theme Switcher & CTA -->
-      <div class="flex items-center gap-3">
+      <!-- Actions: Command Palette, Theme Switcher, CTA & Mobile Hamburger -->
+      <div class="flex items-center gap-2 sm:gap-3">
         
-        <!-- Command Palette Trigger Button (Ctrl+K) -->
-        <button class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-blue-500/50 text-slate-400 hover:text-slate-200 font-mono text-xs transition-all magnetic-btn" id="cmdPaletteBtn" title="Search & Quick Actions (Ctrl+K)">
+        <!-- Mobile Quick Search Button (opens Ctrl+K palette) -->
+        <button class="flex sm:hidden w-9 h-9 rounded-xl bg-slate-900 border border-slate-700/80 text-slate-400 hover:text-blue-400 items-center justify-center cursor-pointer transition-colors active:scale-95" onclick="openCmdPalette()" title="Search & Quick Actions" type="button">
+          <span class="material-symbols-outlined text-[18px]">search</span>
+        </button>
+
+        <!-- Command Palette Trigger Button (Ctrl+K) - Desktop/Tablet -->
+        <button class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-blue-500/50 text-slate-400 hover:text-slate-200 font-mono text-xs transition-all magnetic-btn cursor-pointer" id="cmdPaletteBtn" title="Search & Quick Actions (Ctrl+K)" type="button">
           <span class="material-symbols-outlined text-[16px] text-blue-400">search</span>
           <span>Search</span>
           <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-[10px] text-slate-300 font-sans">Ctrl K</kbd>
@@ -273,7 +321,7 @@
 
         <!-- Theme Switcher Dropdown (Standard Developer IDE Themes) -->
         <div class="relative group">
-          <button class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-600 flex items-center justify-center text-slate-300 hover:text-white transition-colors" id="themeMenuBtn" title="Change IDE Color Palette">
+          <button class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-600 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer" id="themeMenuBtn" title="Change IDE Color Palette" type="button">
             <span class="material-symbols-outlined text-[18px] text-blue-400">palette</span>
           </button>
           <div class="absolute right-0 top-11 w-48 rounded-xl glass-card border border-slate-700 p-2 shadow-2xl hidden group-hover:block hover:block z-50">
@@ -293,28 +341,181 @@
           </div>
         </div>
 
-        <!-- Get in Touch CTA -->
-        <a class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 text-slate-950 font-display font-bold text-xs uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-95 transition-all magnetic-btn" href="#contact">
+        <!-- Get in Touch CTA (visible on sm screens and up) -->
+        <a class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 text-slate-950 font-display font-bold text-xs uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-95 transition-all magnetic-btn" href="#contact">
           <span>Get in Touch</span>
           <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
         </a>
 
-        <!-- Mobile Menu Toggle Button -->
-        <button class="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300" id="mobileMenuBtn">
-          <span class="material-symbols-outlined text-[20px]">menu</span>
+        <!-- Animated Custom Mobile Hamburger Button -->
+        <button aria-expanded="false" aria-label="Toggle Navigation Menu" class="lg:hidden relative w-10 h-10 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-blue-500/50 flex flex-col items-center justify-center gap-1.5 p-2.5 transition-all duration-300 focus:outline-none cursor-pointer group shadow-lg active:scale-95" id="mobileMenuBtn" type="button">
+          <span class="w-5 h-0.5 bg-slate-300 rounded-full transition-all duration-300 transform origin-center group-hover:bg-blue-400 hamburger-line-1"></span>
+          <span class="w-3.5 h-0.5 bg-blue-400 rounded-full transition-all duration-300 transform origin-center self-end group-hover:w-5 group-hover:bg-sky-300 hamburger-line-2"></span>
+          <span class="w-5 h-0.5 bg-slate-300 rounded-full transition-all duration-300 transform origin-center group-hover:bg-blue-400 hamburger-line-3"></span>
         </button>
 
       </div>
     </div>
 
-    <!-- Mobile Drawer Nav Menu -->
-    <div class="hidden lg:hidden glass-card rounded-2xl mt-2 p-4 border border-slate-700 space-y-3 font-mono" id="mobileDrawer">
-      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#terminal-section">~/cli</a>
-      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#about">~/about</a>
-      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#skills">~/skills</a>
-      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#projects">~/projects</a>
-      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#experience">~/experience</a>
-      <a class="block text-sm text-slate-200 hover:text-blue-400 py-1" href="#contact">~/contact</a>
+    <!-- Custom Interactive Animated Mobile Drawer -->
+    <div class="lg:hidden drawer-closed glass-card rounded-2xl mt-2 p-4 sm:p-5 border border-slate-700/90 shadow-2xl backdrop-blur-2xl bg-slate-950/95 overflow-hidden" id="mobileDrawer">
+      
+      <!-- Status & Availability Banner -->
+      <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-700/70 mb-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+          </span>
+          <span class="text-xs font-mono text-slate-300">Available for Remote &amp; On-Site</span>
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-950 text-blue-300 border border-blue-500/40 font-bold">PRO</span>
+      </div>
+
+      <!-- Interactive Route Links with Icons & Live Badges -->
+      <div class="space-y-1.5 mb-4 font-mono">
+        <a class="mobile-nav-link flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-900/90 border border-transparent hover:border-slate-700/80 transition-all text-slate-200 hover:text-blue-400 group" href="#terminal-section">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[17px]">terminal</span>
+            </div>
+            <div>
+              <span class="block text-sm font-bold tracking-tight">~/cli</span>
+              <span class="block text-[10px] text-slate-400 font-sans">Interactive Web Terminal</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all text-[18px]">chevron_right</span>
+        </a>
+
+        <a class="mobile-nav-link flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-900/90 border border-transparent hover:border-slate-700/80 transition-all text-slate-200 hover:text-sky-400 group" href="#about">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[17px]">person</span>
+            </div>
+            <div>
+              <span class="block text-sm font-bold tracking-tight">~/about</span>
+              <span class="block text-[10px] text-slate-400 font-sans">Engineering Journey &amp; Stack</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500 group-hover:text-sky-400 group-hover:translate-x-1 transition-all text-[18px]">chevron_right</span>
+        </a>
+
+        <a class="mobile-nav-link flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-900/90 border border-transparent hover:border-slate-700/80 transition-all text-slate-200 hover:text-indigo-400 group" href="#skills">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[17px]">code</span>
+            </div>
+            <div>
+              <span class="block text-sm font-bold tracking-tight">~/skills</span>
+              <span class="block text-[10px] text-slate-400 font-sans">Tech Radar &amp; Core Stack</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all text-[18px]">chevron_right</span>
+        </a>
+
+        <a class="mobile-nav-link flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-900/90 border border-transparent hover:border-slate-700/80 transition-all text-slate-200 hover:text-emerald-400 group" href="#projects">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[17px]">folder_open</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="block text-sm font-bold tracking-tight">~/projects</span>
+                <span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-500/40 text-[9px] font-bold">3 LIVE</span>
+              </div>
+              <span class="block text-[10px] text-slate-400 font-sans">Production Case Studies &amp; Sliders</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all text-[18px]">chevron_right</span>
+        </a>
+
+        <a class="mobile-nav-link flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-900/90 border border-transparent hover:border-slate-700/80 transition-all text-slate-200 hover:text-amber-400 group" href="#experience">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[17px]">history_edu</span>
+            </div>
+            <div>
+              <span class="block text-sm font-bold tracking-tight">~/experience</span>
+              <span class="block text-[10px] text-slate-400 font-sans">eMythMakers Career Progression</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all text-[18px]">chevron_right</span>
+        </a>
+
+        <a class="mobile-nav-link flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-900/90 border border-transparent hover:border-slate-700/80 transition-all text-slate-200 hover:text-rose-400 group" href="#contact">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[17px]">send</span>
+            </div>
+            <div>
+              <span class="block text-sm font-bold tracking-tight">~/contact</span>
+              <span class="block text-[10px] text-slate-400 font-sans">Direct Signal &amp; Inquiries</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-slate-500 group-hover:text-rose-400 group-hover:translate-x-1 transition-all text-[18px]">chevron_right</span>
+        </a>
+      </div>
+
+      <!-- Quick Theme Palette Selector -->
+      <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 mb-3.5">
+        <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
+          <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[13px] text-blue-400">palette</span> Active Palette</span>
+          <span class="text-[9px] text-slate-500">Tap to Switch</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button class="flex items-center gap-2 p-2 rounded-lg bg-slate-950/80 border border-slate-700/80 hover:border-blue-400 text-xs font-mono text-slate-200 cursor-pointer transition-all active:scale-95" onclick="setAppTheme('github')" type="button">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
+            <span>GitHub Pro</span>
+          </button>
+          <button class="flex items-center gap-2 p-2 rounded-lg bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400 text-xs font-mono text-slate-200 cursor-pointer transition-all active:scale-95" onclick="setAppTheme('vscode')" type="button">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+            <span>VS Code+</span>
+          </button>
+          <button class="flex items-center gap-2 p-2 rounded-lg bg-slate-950/80 border border-slate-700/80 hover:border-amber-400 text-xs font-mono text-slate-200 cursor-pointer transition-all active:scale-95" onclick="setAppTheme('jetbrains')" type="button">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+            <span>JetBrains</span>
+          </button>
+          <button class="flex items-center gap-2 p-2 rounded-lg bg-slate-950/80 border border-slate-700/80 hover:border-teal-400 text-xs font-mono text-slate-200 cursor-pointer transition-all active:scale-95" onclick="setAppTheme('nord')" type="button">
+            <span class="w-2.5 h-2.5 rounded-full bg-teal-300"></span>
+            <span>Nord Dev</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Buttons & Primary CTA -->
+      <div class="space-y-2">
+        <a class="mobile-nav-link flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 via-blue-500 to-sky-400 text-slate-950 font-display font-bold text-sm tracking-wide shadow-lg shadow-blue-500/25 active:scale-[0.98] transition-all cursor-pointer" href="#contact">
+          <span>Transmit Inquiry &amp; Hire</span>
+          <span class="material-symbols-outlined text-[17px]">arrow_forward</span>
+        </a>
+
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button class="flex items-center justify-center gap-1.5 p-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-blue-500 text-slate-300 font-mono text-xs cursor-pointer transition-colors active:scale-95" onclick="openCmdPalette(); toggleMobileDrawer();" type="button">
+            <span class="material-symbols-outlined text-[16px] text-blue-400">search</span>
+            <span>Cmd Palette</span>
+          </button>
+          <button class="flex items-center justify-center gap-1.5 p-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-blue-500 text-slate-300 font-mono text-xs cursor-pointer transition-colors active:scale-95" onclick="copyEmailAction()" type="button">
+            <span class="material-symbols-outlined text-[16px] text-green-400">content_copy</span>
+            <span>Copy Email</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Social Links Footer -->
+      <div class="flex items-center justify-between border-t border-slate-800/80 mt-3.5 pt-3 text-xs font-mono text-slate-400">
+        <span class="text-[11px]">© 2026 Koushik Paul</span>
+        <div class="flex items-center gap-3.5">
+          <a class="hover:text-blue-400 transition-colors flex items-center" href="https://github.com/Koushikpaul7" rel="noreferrer" target="_blank" title="GitHub">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a class="hover:text-blue-400 transition-colors flex items-center" href="https://linkedin.com/in/koushik-paul" rel="noreferrer" target="_blank" title="LinkedIn">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a class="hover:text-blue-400 transition-colors flex items-center" href="mailto:koushikpaul6211@gmail.com" title="Direct Email">
+            <span class="material-symbols-outlined text-[17px]">mail</span>
+          </a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -2137,12 +2338,73 @@
       alert('Email copied to clipboard!'); closeCmdPalette();
     }
 
-    // Mobile Menu Drawer Toggle
+    // Custom Animated Mobile Header & Drawer Controller
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileDrawer = document.getElementById('mobileDrawer');
-    if (mobileMenuBtn && mobileDrawer) {
-      mobileMenuBtn.addEventListener('click', () => { mobileDrawer.classList.toggle('hidden'); });
+
+    function toggleMobileDrawer() {
+      if (!mobileDrawer || !mobileMenuBtn) return;
+      const isOpen = mobileDrawer.classList.contains('drawer-open');
+      if (isOpen) {
+        closeMobileDrawer();
+      } else {
+        openMobileDrawer();
+      }
     }
+
+    function openMobileDrawer() {
+      if (!mobileDrawer || !mobileMenuBtn) return;
+      mobileDrawer.classList.remove('drawer-closed');
+      mobileDrawer.classList.add('drawer-open');
+      mobileMenuBtn.classList.add('menu-open');
+      mobileMenuBtn.setAttribute('aria-expanded', 'true');
+
+      // Staggered micro-animation for drawer links
+      if (typeof gsap !== 'undefined') {
+        gsap.fromTo('#mobileDrawer .mobile-nav-link', 
+          { y: -12, opacity: 0 }, 
+          { y: 0, opacity: 1, duration: 0.28, stagger: 0.04, ease: 'power3.out' }
+        );
+      }
+    }
+
+    function closeMobileDrawer() {
+      if (!mobileDrawer || !mobileMenuBtn) return;
+      mobileDrawer.classList.remove('drawer-open');
+      mobileDrawer.classList.add('drawer-closed');
+      mobileMenuBtn.classList.remove('menu-open');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMobileDrawer();
+      });
+    }
+
+    // Auto-close drawer on link click
+    document.querySelectorAll('#mobileDrawer a').forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileDrawer();
+      });
+    });
+
+    // Close when clicking outside drawer
+    document.addEventListener('click', (e) => {
+      if (mobileDrawer && mobileDrawer.classList.contains('drawer-open')) {
+        if (!mobileDrawer.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          closeMobileDrawer();
+        }
+      }
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer && mobileDrawer.classList.contains('drawer-open')) {
+        closeMobileDrawer();
+      }
+    });
 
     // Email Copy Button
     const copyEmailBtn = document.getElementById('copyEmailBtn');
